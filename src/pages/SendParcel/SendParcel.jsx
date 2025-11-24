@@ -3,8 +3,10 @@ import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const SendParcel = () => {
+  const axiosSecure = useAxiosSecure();
   const branches = useLoaderData();
   const { user } = useAuth();
   const {
@@ -52,9 +54,9 @@ const SendParcel = () => {
       }
     }
 
-     Swal.fire({
-       title: "Confirm Parcel Submission",
-       html: `
+    Swal.fire({
+      title: "Confirm Parcel Submission",
+      html: `
       <div style="text-align:left;">
         <p><b>Parcel Name:</b> ${data.parcelName}</p>
         <p><b>Weight:</b> ${data.parcelWeight} KG</p>
@@ -64,28 +66,25 @@ const SendParcel = () => {
         <p><b>Receiver:</b> ${data.receiverName}, ${data.receiverDistrict}, ${data.receiverCoveredArea}</p>
       </div>
     `,
-       icon: "info",
-       showCancelButton: true,
-       confirmButtonColor: "#3085d6",
-       cancelButtonColor: "#d33",
-       confirmButtonText: "Confirm & Send",
-     }).then((result) => {
-       if (result.isConfirmed) {
-         Swal.fire({
-           title: "Parcel Sent!",
-           text: "Your parcel has been successfully submitted.",
-           icon: "success",
-           confirmButtonColor: "#3085d6",
-         });
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Confirm & Send",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.post("/parcels", data).then((res) => {
+          console.log(res.data);
+        });
 
-         /// If you want to POST to backend, do it here:
-         // fetch("/api/parcel", {
-         //   method: "POST",
-         //   headers: { "content-type": "application/json" },
-         //   body: JSON.stringify({ ...data, cost }),
-         // });
-       }
-     });
+        Swal.fire({
+          title: "Parcel Sent!",
+          text: "Your parcel has been successfully submitted.",
+          icon: "success",
+          confirmButtonColor: "#3085d6",
+        });
+      }
+    });
   };
   return (
     <div className="px-4 md:px-12 lg:px-24 py-10 lg:py-20 bg-base-100 rounded-2xl mt-8">
@@ -154,7 +153,7 @@ const SendParcel = () => {
               {...register("senderName")}
               className="input w-full focus:outline-primary"
               defaultValue={
-                user.displayName || user.providerData[0].displayName
+                user?.displayName || user?.providerData[0]?.displayName
               }
             />
 
@@ -165,7 +164,7 @@ const SendParcel = () => {
               type="email"
               {...register("senderEmail")}
               className="input w-full focus:outline-primary"
-              defaultValue={user.email || user.providerData[0].email}
+              defaultValue={user?.email || user?.providerData[0]?.email}
             />
 
             {/* sender contact */}

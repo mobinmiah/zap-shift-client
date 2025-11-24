@@ -7,6 +7,7 @@ import bannerImg2 from "../../../assets/banner/banner2.png";
 import bannerImg3 from "../../../assets/banner/banner3.png";
 
 import { FaArrowCircleRight } from "react-icons/fa";
+import { Link } from "react-router";
 
 const ReactBanner = () => {
   const bannerBtns = (
@@ -16,9 +17,12 @@ const ReactBanner = () => {
         <FaArrowCircleRight className="hidden lg:block text-2xl -rotate-45" />
       </button>
 
-      <button className="btn bg-transparent outline-primary text-secondary rounded-full btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">
+      <Link
+        to="/rider"
+        className="btn bg-transparent outline-primary text-secondary rounded-full btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl"
+      >
         Be a Rider
-      </button>
+      </Link>
     </div>
   );
 
