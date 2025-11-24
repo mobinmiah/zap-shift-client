@@ -89,7 +89,8 @@ const NavBar = () => {
               <img
                 className="w-10 h-10 rounded-full bg-primary"
                 src={user.photoURL || user.providerData[0].photoURL}
-                alt=""
+                alt={user.displayName || user.providerData[0].displayName}
+                title={user.displayName || user.providerData[0].displayName}
               />
               <button onClick={handleLogout} className="btn bg-primary">
                 Log Out{" "}

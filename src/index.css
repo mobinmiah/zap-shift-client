@@ -13,7 +13,8 @@
     --color-primary: #CAEB66;
     --color-secondary: #03373D;
     --color-auth: #FAFDF0;
-    --color-accent:#606060;
+    --color-accent: #606060;
+    --color-info: #0F172A;
 }
 
 * {
@@ -44,7 +45,13 @@ h2 {
 
 h3 {
     font-weight: 700;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
+    color: var(--color-secondary);
+}
+
+h4{
+    font-weight: 800;
+    font-size: 1.125rem;
     color: var(--color-secondary);
 }
 
@@ -53,3 +60,7 @@ p {
     color: var(--color-accent);
 }
 
+.label {
+    color: var(--color-info);
+    font-weight: 500;
+}

@@ -10,53 +10,85 @@ const Footer = () => {
   const socialLinks = (
     <>
       <Link>
-        <img src={linkedIn} alt="" />
+        <img src={linkedIn} alt="LinkedIn" className="w-6" />
       </Link>
       <Link>
-        <img src={x} alt="" />
+        <img src={x} alt="X" className="w-6" />
       </Link>
       <Link>
-        <img src={fb} alt="" />
+        <img src={fb} alt="Facebook" className="w-6" />
       </Link>
       <Link>
-        <img src={yt} alt="" />
+        <img src={yt} alt="YouTube" className="w-6" />
       </Link>
     </>
   );
+
   const navLinks = (
     <>
       <li>
-        <Link className="text-base-100">Services</Link>
+        <Link className="text-base-100 hover:text-primary transition">
+          Services
+        </Link>
       </li>
       <li>
-        <Link className="text-base-100">Coverage</Link>
+        <Link className="text-base-100 hover:text-primary transition">
+          Coverage
+        </Link>
       </li>
       <li>
-        <Link className="text-base-100">About Us</Link>
+        <Link className="text-base-100 hover:text-primary transition">
+          About Us
+        </Link>
       </li>
       <li>
-        <Link className="text-base-100">Pricing</Link>
+        <Link className="text-base-100 hover:text-primary transition">
+          Pricing
+        </Link>
       </li>
       <li>
-        <Link className="text-base-100">Be a Rider</Link>
+        <Link className="text-base-100 hover:text-primary transition">
+          Be a Rider
+        </Link>
       </li>
     </>
   );
+
   return (
-    <footer className="footer footer-horizontal footer-center p-20 space-y-5 bg-[#0B0B0B] mt-10 rounded-2xl">
-      <img src={footerLogo} alt="" />
-      <aside>
-        <p className="font-bold !text-base-200">
+    <footer className="bg-[#0B0B0B] rounded-2xl mt-10 px-6 py-12 md:py-16 text-center space-y-8">
+      {/* Logo */}
+      <div className="flex justify-center">
+        <img src={footerLogo} alt="Footer Logo" className="w-40 md:w-48" />
+      </div>
+
+      {/* Paragraph */}
+      <aside className="max-w-3xl mx-auto space-y-2">
+        <p className="text-base-200 font-medium leading-relaxed">
           Enjoy fast, reliable parcel delivery with real-time tracking and zero
           hassle. From personal packages to business shipments — we deliver on
           time, every time.
         </p>
-        <p className="!text-base-200">Copyright © {new Date().getFullYear()} - All right reserved</p>
+        <p className="text-base-200 text-sm">
+          Copyright © {new Date().getFullYear()} - All rights reserved
+        </p>
       </aside>
-      <nav className="list-none flex justify-between items-center">
-        {navLinks}
+
+      {/* Navigation Links */}
+      <nav className="w-full">
+        <ul
+          className="
+          flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 
+          list-none 
+        "
+        >
+          {navLinks}
+        </ul>
       </nav>
-      <div className="flex items-center gap-6">{socialLinks}</div>
+
+      {/* Social Icons */}
+      <div className="flex justify-center items-center gap-5">
+        {socialLinks}
+      </div>
     </footer>
   );
 };

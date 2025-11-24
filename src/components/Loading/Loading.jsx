@@ -4,7 +4,7 @@ import loaderGif from "../../assets/running.gif";
 const Loading = () => {
   return (
     <div className="flex flex-col items-center justify-center gap-3 py-10">
-      <div className="p-4 rounded-full">
+      <div className="p-4 rounded-full bg-primary">
         <img
           src={loaderGif}
           alt="loading..."

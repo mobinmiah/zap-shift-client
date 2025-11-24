@@ -8,7 +8,7 @@ const Rider = () => {
   return (
     <div className="bg-base-100 mt-10 rounded-2xl p-10">
       {/* Header Section */}
-      <h2 className="!text-start">Be a Rider</h2>
+      <h2 className={`text-start!`}>Be a Rider</h2>
       <p className="max-w-2xl mb-10">
         Enjoy fast, reliable parcel delivery with real-time tracking and zero
         hassle. From personal packages to business shipments — we deliver on
