@@ -5,7 +5,7 @@ import navLogo from "../../../assets/nav_logo.png";
 import useAuth from "../../../hooks/useAuth";
 
 const NavBar = () => {
-  const { user, logOutUser } = useAuth();
+  const { user, logOutUser, loading, setLoading } = useAuth();
 
   const handleLogout = () => {
     logOutUser();
@@ -45,8 +45,18 @@ const NavBar = () => {
       <li className="border border-primary rounded-lg mr-2">
         <NavLink to="/rider">Be a Rider</NavLink>
       </li>
+      {user && (
+        <>
+          <li className="border border-primary rounded-lg mr-2">
+            <NavLink to="/dashboard/my-parcels">My Parcels</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
+  if (loading) {
+    return setLoading(true);
+  }
   return (
     <div className="navbar bg-base-100 shadow-sm rounded-lg">
       <div className="navbar-start">
@@ -86,12 +96,16 @@ const NavBar = () => {
         <div>
           {user ? (
             <div className="flex justify-between items-center gap-3">
-              <img
-                className="w-10 h-10 rounded-full bg-primary"
-                src={user?.photoURL || user?.providerData[0]?.photoURL}
-                alt={user?.displayName || user?.providerData[0]?.displayName}
-                title={user?.displayName || user?.providerData[0]?.displayName}
-              />
+              <Link to="/dashboard">
+                <img
+                  className="w-10 h-10 rounded-full bg-primary"
+                  src={user?.photoURL || user?.providerData[0]?.photoURL}
+                  alt={user?.displayName || user?.providerData[0]?.displayName}
+                  title={
+                    user?.displayName || user?.providerData[0]?.displayName
+                  }
+                />
+              </Link>
               <button onClick={handleLogout} className="btn bg-primary">
                 Log Out{" "}
                 <FaArrowCircleRight className="-rotate-45"></FaArrowCircleRight>

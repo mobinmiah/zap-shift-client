@@ -43,7 +43,7 @@ const Reviews = ({ reviewsPromise }) => {
             slideShadows: true,
           }}
           autoplay={{
-            delay: 1000,
+            delay: 2000,
           }}
           
           modules={[EffectCoverflow, Pagination, Autoplay]}

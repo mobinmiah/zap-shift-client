@@ -4,14 +4,18 @@ import HowItWorks from "../HowItWorks/HowItWorks";
 import Services from "../Services/Services";
 import Brands from "../Brands/Brands";
 import Support from "../Support/Support";
-import Priority from "./Priority";
+import Priority from "../Priority/Priority";
 import Reviews from "../Reviews/Reviews";
 import FAQ from "../FAQ/FAQ";
-import Loading from "../../../components/Loading/Loading";
+import useAuth from "../../../hooks/useAuth";
 
 const reviewsPromise = fetch("reviews.json").then((res) => res.json());
 
 const Home = () => {
+  const { loading, setLoading } = useAuth();
+  if (loading) {
+    return setLoading(true);
+  }
   return (
     <div>
       <title>Home | zapShip</title>

@@ -12,6 +12,8 @@ import Rider from "../pages/Rider/Rider";
 import PrivateRoute from "./PrivateRoute";
 import Services from "../pages/Home/Services/Services";
 import SendParcel from "../pages/SendParcel/SendParcel";
+import DashboardLayout from "../layouts/DashboardLayout";
+import MyParcels from "../pages/Dashboard/MyParcels/MyParcels";
 
 export const router = createBrowserRouter([
   {
@@ -24,21 +26,21 @@ export const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path: "/services",
+        path: "services",
         Component: Services,
       },
       {
-        path: "/coverage",
+        path: "coverage",
         Component: Coverage,
         loader: () => fetch("/serviceBranches.json").then((res) => res.json()),
         hydrateFallbackElement: <Loading></Loading>,
       },
       {
-        path: "/about",
+        path: "about",
         Component: About,
       },
       {
-        path: "/sendParcel",
+        path: "sendParcel",
         element: (
           <PrivateRoute>
             <SendParcel></SendParcel>
@@ -48,7 +50,7 @@ export const router = createBrowserRouter([
         hydrateFallbackElement: <Loading></Loading>,
       },
       {
-        path: "/rider",
+        path: "rider",
         element: (
           <PrivateRoute>
             <Rider></Rider>
@@ -58,7 +60,7 @@ export const router = createBrowserRouter([
         hydrateFallbackElement: <Loading></Loading>,
       },
       {
-        path: "/addParsel",
+        path: "addParsel",
         element: <></>,
       },
     ],
@@ -69,12 +71,26 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
-        path: "/login",
+        path: "login",
         Component: Login,
       },
       {
-        path: "/register",
+        path: "register",
         Component: Register,
+      },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "my-parcels",
+        Component: MyParcels,
       },
     ],
   },

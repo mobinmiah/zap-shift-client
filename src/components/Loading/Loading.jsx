@@ -12,10 +12,7 @@ const Loading = () => {
         />
       </div>
 
-      <p
-        className="text-base font-medium animate-pulse text-primary"
-       
-      >
+      <p className="text-base font-medium animate-pulse text-primary">
         Loading...
       </p>
     </div>

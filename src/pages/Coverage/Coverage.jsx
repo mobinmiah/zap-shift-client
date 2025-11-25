@@ -23,7 +23,7 @@ const Coverage = () => {
   return (
     <div className="mt-8 mb-28 py-20 px-24 space-y-12 bg-base-100 rounded-2xl">
       <title>Coverage | zapShip</title>
-      <h2 className="!text-start">We are available in 64 districts</h2>
+      <h2 className={`text-start!`}>We are available in 64 districts</h2>
       <div className="relative w-80">
         <form onSubmit={handleSearch}>
           {" "}
@@ -44,7 +44,7 @@ const Coverage = () => {
       <div>
         <MapContainer
           center={position}
-          zoom={10}
+          zoom={8}
           scrollWheelZoom={false}
           className="h-[800px]"
           ref={mapRef}
