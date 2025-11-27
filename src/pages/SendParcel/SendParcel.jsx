@@ -1,11 +1,12 @@
 import React from "react";
 import { useForm, useWatch } from "react-hook-form";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const SendParcel = () => {
+  const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
   const branches = useLoaderData();
   const { user } = useAuth();
@@ -54,6 +55,8 @@ const SendParcel = () => {
       }
     }
 
+    data.cost = cost;
+
     Swal.fire({
       title: "Confirm Parcel Submission",
       html: `
@@ -76,12 +79,13 @@ const SendParcel = () => {
         axiosSecure.post("/parcels", data).then((res) => {
           console.log(res.data);
         });
-
+        navigate("/dashboard/my-parcels");
         Swal.fire({
-          title: "Parcel Sent!",
-          text: "Your parcel has been successfully submitted.",
+          position: "top-end",
           icon: "success",
-          confirmButtonColor: "#3085d6",
+          title: "Parcel has created, Please Pay",
+          showConfirmButton: false,
+          timer: 1500,
         });
       }
     });

@@ -9,7 +9,7 @@ import Reviews from "../Reviews/Reviews";
 import FAQ from "../FAQ/FAQ";
 import useAuth from "../../../hooks/useAuth";
 
-const reviewsPromise = fetch("reviews.json").then((res) => res.json());
+const reviewsPromise = fetch("/reviews.json").then((res) => res.json());
 
 const Home = () => {
   const { loading, setLoading } = useAuth();

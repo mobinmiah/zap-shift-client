@@ -34,7 +34,13 @@ const Reviews = ({ reviewsPromise }) => {
           effect="coverflow"
           grabCursor={true}
           centeredSlides={true}
-          slidesPerView="auto"
+          modules={[EffectCoverflow, Pagination, Autoplay]}
+          autoplay={{ delay: 2000 }}
+          breakpoints={{
+            320: { slidesPerView: 1 },
+            640: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          }}
           coverflowEffect={{
             rotate: 50,
             stretch: 0,
@@ -42,15 +48,13 @@ const Reviews = ({ reviewsPromise }) => {
             modifier: 1,
             slideShadows: true,
           }}
-          autoplay={{
-            delay: 2000,
-          }}
-          
-          modules={[EffectCoverflow, Pagination, Autoplay]}
-          className="mySwiper max-w-max lg:max-w-7xl"
+          className="mySwiper w-full max-w-7xl mx-auto"
         >
           {reviews.map((review) => (
-            <SwiperSlide key={review.id} className="!w-[280px]">
+            <SwiperSlide
+              key={review.id}
+              className="w-full max-w-xs md:max-w-sm"
+            >
               <div className="py-10 flex justify-center">
                 <ReviewCard review={review} />
               </div>
