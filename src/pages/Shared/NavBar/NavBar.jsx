@@ -6,7 +6,7 @@ import useAuth from "../../../hooks/useAuth";
 
 const NavBar = () => {
   const { user, logOutUser, loading, setLoading } = useAuth();
-
+  const photo = user?.photoURL || user?.providerData[0]?.photoURL;
   const handleLogout = () => {
     logOutUser();
   };
@@ -97,17 +97,23 @@ const NavBar = () => {
           {user ? (
             <div className="flex justify-between items-center gap-3">
               <Link to="/dashboard">
-                <img
-                  className="w-10 h-10 rounded-full bg-primary"
-                  src={user?.photoURL || user?.providerData[0]?.photoURL}
-                  alt={user?.displayName || user?.providerData[0]?.displayName}
-                  title={
-                    user?.displayName || user?.providerData[0]?.displayName
-                  }
-                />
+                {photo ? (
+                  <img
+                    className="w-10 h-10 rounded-full bg-primary"
+                    src={photo}
+                    alt={
+                      user?.displayName || user?.providerData[0]?.displayName
+                    }
+                    title={
+                      user?.displayName || user?.providerData[0]?.displayName
+                    }
+                  />
+                ) : (
+                  <div className="w-10 h-10 rounded-full bg-primary"></div>
+                )}
               </Link>
               <button onClick={handleLogout} className="btn bg-primary">
-                Log Out{" "}
+                Log Out
                 <FaArrowCircleRight className="-rotate-45"></FaArrowCircleRight>
               </button>
             </div>

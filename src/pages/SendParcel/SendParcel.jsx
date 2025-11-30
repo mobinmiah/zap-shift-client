@@ -36,7 +36,7 @@ const SendParcel = () => {
 
   const handleSendParcel = (data) => {
     const isDocument = data.parcelType === "document";
-    const parcelWeight = parseFloat(data.parcelWeight);
+    const parcelWeight = Number(parseFloat(data.parcelWeight));
     const isSameDistrict = data.senderDistrict === data.receiverDistrict;
 
     let cost = 0;
@@ -85,7 +85,7 @@ const SendParcel = () => {
           icon: "success",
           title: "Parcel has created, Please Pay",
           showConfirmButton: false,
-          timer: 1500,
+          timer: 2500,
         });
       }
     });
@@ -108,6 +108,7 @@ const SendParcel = () => {
               {...register("parcelType")}
               className="radio radio-primary"
               defaultChecked
+              required
             />
             Document
           </label>
@@ -117,6 +118,7 @@ const SendParcel = () => {
               value="non-document"
               {...register("parcelType")}
               className="radio radio-primary"
+              required
             />
             Non-Document
           </label>
@@ -131,15 +133,17 @@ const SendParcel = () => {
               {...register("parcelName")}
               className="input w-full focus:outline-primary"
               placeholder="Parcel Name"
+              required
             />
           </fieldset>
           <fieldset className="fieldset space-y-1">
             <label className="label">Parcel Weight (KG)</label>
             <input
-              type="number"
+              type="text"
               {...register("parcelWeight")}
               className="input w-full focus:outline-primary"
               placeholder="Parcel Weight"
+              required
             />
           </fieldset>
         </div>
@@ -159,6 +163,7 @@ const SendParcel = () => {
               defaultValue={
                 user?.displayName || user?.providerData[0]?.displayName
               }
+              required
             />
 
             {/* sender Email */}
@@ -169,6 +174,7 @@ const SendParcel = () => {
               {...register("senderEmail")}
               className="input w-full focus:outline-primary"
               defaultValue={user?.email || user?.providerData[0]?.email}
+              required
             />
 
             {/* sender contact */}
@@ -178,6 +184,7 @@ const SendParcel = () => {
               {...register("senderContact")}
               className="input w-full focus:outline-primary"
               placeholder="Sender Contact No"
+              required
             />
 
             {/* sender region */}
@@ -187,6 +194,7 @@ const SendParcel = () => {
                 {...register("senderRegion")}
                 defaultValue="Select Region"
                 className="select w-full focus:outline-primary"
+                required
               >
                 <option disabled={true}>Select Region</option>
                 {regions.map((region, index) => (
@@ -204,6 +212,7 @@ const SendParcel = () => {
                 {...register("senderDistrict")}
                 defaultValue="Select District"
                 className="select w-full focus:outline-primary"
+                required
               >
                 <option disabled={true}>Select District</option>
                 {districtsByRegions(senderRegion).map((district, index) => (
@@ -221,6 +230,7 @@ const SendParcel = () => {
                 {...register("senderCoveredArea")}
                 defaultValue="Select Area"
                 className="select w-full focus:outline-primary"
+                required
               >
                 <option disabled={true}>Select Area</option>
                 {coveredAreasByDistrict(senderDistrict).map((area, index) => (
@@ -238,6 +248,7 @@ const SendParcel = () => {
               {...register("senderStreetAddress")}
               className="input w-full focus:outline-primary"
               placeholder="Sender Street Address"
+              required
             />
             {/* pickup instructions */}
             <label className="label">Pickup Instruction</label>
@@ -259,6 +270,7 @@ const SendParcel = () => {
               {...register("receiverName")}
               className="input w-full focus:outline-primary"
               placeholder="Receiver Name"
+              required
             />
             {/* receiver email */}
             <label className="label">Receiver Email</label>
@@ -267,6 +279,7 @@ const SendParcel = () => {
               {...register("receiverEmail")}
               className="input w-full focus:outline-primary"
               placeholder="Receiver Email"
+              required
             />
             {/* receiver contact */}
             <label className="label">Receiver Contact No</label>
@@ -275,6 +288,7 @@ const SendParcel = () => {
               {...register("receiverContact")}
               className="input w-full focus:outline-primary"
               placeholder="Receiver Contact No"
+              required
             />
 
             {/* receiver region */}
@@ -284,6 +298,7 @@ const SendParcel = () => {
                 {...register("receiverRegion")}
                 defaultValue="Select Region"
                 className="select w-full focus:outline-primary"
+                required
               >
                 <option disabled={true}>Select Region</option>
                 {regions.map((region, index) => (
@@ -302,6 +317,7 @@ const SendParcel = () => {
                 {...register("receiverDistrict")}
                 defaultValue="Select District"
                 className="select w-full focus:outline-primary"
+                required
               >
                 <option disabled={true}>Select District</option>
                 {districtsByRegions(receiverRegion).map((district, index) => (
@@ -319,6 +335,7 @@ const SendParcel = () => {
                 {...register("receiverCoveredArea")}
                 defaultValue="Select Area"
                 className="select w-full focus:outline-primary"
+                required
               >
                 <option disabled={true}>Select Area</option>
                 {coveredAreasByDistrict(receiverDistrict).map((area, index) => (
@@ -336,6 +353,7 @@ const SendParcel = () => {
               {...register("receiverStreetAddress")}
               className="input w-full focus:outline-primary"
               placeholder="Receiver Street Address"
+              required
             />
             {/* receiver instructions */}
             <label className="label">Receiver Instruction</label>

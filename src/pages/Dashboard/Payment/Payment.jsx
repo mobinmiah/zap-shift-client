@@ -17,10 +17,6 @@ const Payment = () => {
     },
   });
 
-  if (isLoading) {
-    return <Loading></Loading>;
-  }
-
   const handlePayment = async () => {
     const paymentInfo = {
       cost: parcel.cost,
@@ -34,6 +30,10 @@ const Payment = () => {
     window.location.href = res.data.url;
   };
 
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
+  
   return (
     <div className="m-8 p-8 bg-base-100 rounded-lg flex flex-col justify-center items-center">
       <h2>Payment for {parcel.parcelName}</h2>

@@ -7,12 +7,13 @@ import { PiListMagnifyingGlassBold } from "react-icons/pi";
 import { FaRegTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { Link } from "react-router";
+import Loading from "../../../components/Loading/Loading";
 
 const MyParcels = () => {
   const { user } = useAuth();
   const email = user?.eamil || user?.providerData[0].email;
   const axiosSecure = useAxiosSecure();
-  const { data: parcels = [], refetch } = useQuery({
+  const { data: parcels = [], refetch , isLoading} = useQuery({
     queryKey: ["myParcels", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/parcels?email=${email}`);
@@ -56,6 +57,10 @@ const MyParcels = () => {
     console.log(res.data.url);
     window.location.assign(res.data.url);
   };
+
+if(isLoading){
+  return <Loading></Loading>
+}
 
   return (
     <div className="m-8 bg-base-100 rounded-lg">
