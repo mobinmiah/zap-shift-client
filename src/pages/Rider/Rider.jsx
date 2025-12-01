@@ -3,11 +3,12 @@ import riderImg from "../../assets/agent-pending.png";
 import { useLoaderData } from "react-router";
 import { useForm, useWatch } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
-// import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Rider = () => {
   const { user } = useAuth();
-  // const axiosSecure = useAxiosSecure();
+  const axiosSecure = useAxiosSecure();
   const branches = useLoaderData();
   const {
     register,
@@ -18,7 +19,6 @@ const Rider = () => {
   const regionsDuplicate = branches.map((b) => b.region);
   const regions = [...new Set(regionsDuplicate)];
   const region = useWatch({ control, name: "region" });
-  const district = useWatch({ control, name: "district" });
 
   const districtsByRegions = (region) => {
     const regionDistricts = branches.filter((b) => b.region === region);
@@ -26,27 +26,34 @@ const Rider = () => {
     return districts;
   };
 
-  const coveredAreasByDistrict = (district) => {
-    const districtData = branches.find((b) => b.district === district);
-    return districtData?.covered_area || [];
-  };
-
   const handleRiderApplication = (data) => {
     console.log(data);
+
+    axiosSecure.post("riders", data).then((res) => {
+      if (res.data.insertedId) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Your Applicaton is in precess, You will be notified",
+          showConfirmButton: false,
+          timer: 2500,
+        });
+      }
+    });
   };
 
   return (
-    <div className="mt-10 bg-base-100 p-8 lg:p-12 rounded-2xl shadow-sm">
+    <div className="mt-4 md:mt-10 bg-base-100 p-4 lg:p-12 rounded-xl shadow-sm">
       {/* Header */}
       <h2 className={`text-start!`}>Be a Rider</h2>
-      <p className="max-w-2xl text-gray-600 mb-10">
+      <p className="max-w-2xl mb-10">
         Enjoy fast, reliable parcel delivery with real-time tracking and zero
         hassle. From personal packages to business shipments — we deliver on
         time, every time.
       </p>
 
       {/* Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-10 items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-5 lg:gap-10">
         {/* Form */}
         <form
           onSubmit={handleSubmit(handleRiderApplication)}
@@ -61,26 +68,29 @@ const Rider = () => {
                 type="text"
                 className="input w-full focus:outline-primary"
                 defaultValue={user.displayName || user.providerData.displayName}
+                readOnly
+              />
+            </div>
+
+            <div>
+              <label className="label">Email</label>
+              <input
+                {...register("email")}
+                type="email"
+                className="input w-full focus:outline-primary"
+                defaultValue={user.email || user.providerData.email}
+                readOnly
               />
             </div>
             <div>
               <label className="label">Driving License Number</label>
               <input
+                {...register("drivingLicense")}
                 type="text"
                 className="input w-full focus:outline-primary"
                 placeholder="Driving License Number"
               />
             </div>
-            <div>
-              <label className="label">Email</label>
-              <input
-              {...register('email')}
-                type="email"
-                className="input w-full focus:outline-primary"
-                defaultValue={user.email || user.providerData.email}
-              />
-            </div>
-
             <div>
               <label className="label">Your Region</label>
               <select
@@ -113,26 +123,11 @@ const Rider = () => {
                 ))}
               </select>
             </div>
-            <div>
-              <label className="label">Your Area</label>
-              <select
-                {...register("coveredArea")}
-                defaultValue="Select Area"
-                className="select w-full focus:outline-primary"
-                required
-              >
-                <option disabled={true}>Select Area</option>
-                {coveredAreasByDistrict(district).map((area, index) => (
-                  <option key={index} value={area}>
-                    {area}
-                  </option>
-                ))}
-              </select>
-            </div>
+
             <div>
               <label className="label">NID No</label>
               <input
-              {...register('nidNumber')}
+                {...register("nid")}
                 type="text"
                 className="input w-full focus:outline-primary"
                 placeholder="Your NID No"
@@ -141,7 +136,7 @@ const Rider = () => {
             <div>
               <label className="label">Phone No</label>
               <input
-              {...register('phoneNumber')}
+                {...register("phone")}
                 type="text"
                 className="input w-full focus:outline-primary"
                 placeholder="Your Phone No"
@@ -150,7 +145,7 @@ const Rider = () => {
             <div>
               <label className="label">Bike Brand Model and Year</label>
               <input
-              {...register('bikeInfo')}
+                {...register("bikeInfo")}
                 type="text"
                 className="input w-full focus:outline-primary"
                 placeholder="Bike Brand Model and Year"
@@ -159,7 +154,7 @@ const Rider = () => {
             <div>
               <label className="label">Bike Registration Number</label>
               <input
-              {...register("bikeRegisterNumber")}
+                {...register("bikeRegister")}
                 type="text"
                 className="input w-full focus:outline-primary"
                 placeholder="Bike Registration Number"
@@ -169,23 +164,24 @@ const Rider = () => {
             <div>
               <label className="label">Tell Us About Yourself</label>
               <textarea
-              {...register('bikerInfo')}
+                {...register("bikerInfo")}
                 placeholder="Receiver Instruction"
                 className="textarea w-full focus:outline-primary"
               ></textarea>
             </div>
 
             <div>
-              <button className="btn bg-primary text-secondary mt-4 w-full">
-                Submit
-              </button>
+              <input
+                type="submit"
+                value="Apply as a Rider"
+                className="btn bg-primary text-secondary mt-4 w-full"
+              />
             </div>
           </fieldset>
+          {/* Image */}
         </form>
-
-        {/* Image */}
-        <div className="flex justify-center items-center">
-          <img src={riderImg} className="w-72 md:w-full" alt="Rider" />
+        <div className="hidden md:flex justify-center items-center">
+          <img src={riderImg} className="w-full" alt="Rider" />
         </div>
       </div>
     </div>

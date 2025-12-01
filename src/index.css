@@ -63,4 +63,5 @@ p {
 .label {
     color: var(--color-info);
     font-weight: 700;
+    font-size: 1rem;
 }
