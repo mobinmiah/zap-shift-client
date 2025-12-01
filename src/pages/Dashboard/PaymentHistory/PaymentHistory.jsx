@@ -30,6 +30,7 @@ const PaymentHistory = () => {
               <th>No.</th>
               <th>Parcel Info</th>
               {/* <th>Recipient Info</th> */}
+              <th>Paid Time</th>
               <th>Payment Info</th>
               <th>Tracking ID</th>
               <th>Actions</th>
@@ -40,6 +41,7 @@ const PaymentHistory = () => {
               <tr key={payment._id}>
                 <td>{index + 1}</td>
                 <td>{payment.parcelName}</td>
+                <td>{payment.paidAt}</td>
                 <td>৳ {payment.amount}</td>
                 <td>{payment.trackingId}</td>
                 <td>btns</td>

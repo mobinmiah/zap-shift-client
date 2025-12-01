@@ -6,13 +6,14 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import SocialButton from "../SocialButton/SocialButton";
 import axios from "axios";
 import Loading from "../../../components/Loading/Loading";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const Register = () => {
-
   const location = useLocation();
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure()
   const [passType, setPassType] = useState(false);
-  const { registerUser, updateUsersProfile,user } = useAuth();
+  const { registerUser, updateUsersProfile } = useAuth();
   const {
     register,
     handleSubmit,
@@ -20,38 +21,49 @@ const Register = () => {
   } = useForm();
 
   const handleRegister = (data) => {
-    console.log(data);
     const profileImg = data.photo[0];
 
     registerUser(data.email, data.password)
-      .then((result) => {
-        console.log(result);
+      .then(() => {
         const formData = new FormData();
         formData.append("image", profileImg);
         const image_URL_API = `https://api.imgbb.com/1/upload?expiration=600&key=${
           import.meta.env.VITE_photo_host_key
         }`;
         axios.post(image_URL_API, formData).then((res) => {
-          console.log("after image uploade", res.data.data.url);
+          const photoURL = res.data.data.url;
+
+          // crreate user in the db
+          const userInfo = {
+            email: data.email,
+            displayName: data.name,
+            photoURL: photoURL,
+          };
+
+          axiosSecure.post('/users', userInfo)
+          .then(res=>{
+           if(res.data.insertedId){
+             console.log("user created in the databse");
+           }
+          })
+
+          // update user profile
           const updateProfile = {
             displayName: data.name,
-            photoURL: res.data.data.url,
+            photoURL: photoURL,
           };
 
           updateUsersProfile(updateProfile)
             .then()
             .catch((error) => console.log(error));
-            navigate(location?.state || "/");
+          navigate(location?.state || "/");
         });
       })
       .catch((error) => {
         console.log(error);
       });
   };
-  
-  if(!user){
-    return <Loading></Loading>
-  }
+
   return (
     <div>
       <title>Register | zapShift</title>

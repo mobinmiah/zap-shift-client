@@ -11,10 +11,17 @@ const useAxiosSecure = () => {
   const { user, logOutUser } = useAuth();
   const navigate = useNavigate();
   useEffect(() => {
-    const reqInterceptor = axiosSecure.interceptors.request.use((config) => {
-      config.headers.Authorization = `Beerer ${user.accessToken}`;
-      return config;
-    });
+    const reqInterceptor = axiosSecure.interceptors.request.use(
+      (config) => {
+        if (user) {
+          const tokenByMe =
+            user.accessToken || user.stsTokenManager.accessToken;
+          // const tokenByGPT = await user.getIdToken(true);
+          config.headers.Authorization = `Bearer ${tokenByMe}`;
+        }
+        return config;
+      }
+    );
 
     const resInterceptor = axiosSecure.interceptors.response.use(
       (respone) => {
@@ -38,7 +45,7 @@ const useAxiosSecure = () => {
       axiosSecure.interceptors.request.eject(reqInterceptor);
       axiosSecure.interceptors.response.eject(resInterceptor);
     };
-  }, [user]);
+  }, [user, logOutUser, navigate]);
 
   return axiosSecure;
 };
