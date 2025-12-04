@@ -35,7 +35,7 @@ const Payment = () => {
   }
   
   return (
-    <div className="m-8 p-8 bg-base-100 rounded-lg flex flex-col justify-center items-center">
+    <div className="m-2 p-3 bg-base-100 rounded-lg flex flex-col justify-center items-center">
       <h2>Payment for {parcel.parcelName}</h2>
       <button
         onClick={handlePayment}

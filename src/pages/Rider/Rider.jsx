@@ -27,7 +27,6 @@ const Rider = () => {
   };
 
   const handleRiderApplication = (data) => {
-    console.log(data);
 
     axiosSecure.post("riders", data).then((res) => {
       if (res.data.insertedId) {

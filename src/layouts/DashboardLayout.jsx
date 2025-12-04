@@ -1,14 +1,17 @@
 import React from "react";
-import { FaHome } from "react-icons/fa";
+import { FaHome, FaMotorcycle, FaUsers } from "react-icons/fa";
 import { Link, NavLink, Outlet } from "react-router";
 import navLogo from "../assets/nav_logo.png";
 import myParcelIcon from "../../src/assets/my-parcel.svg";
 import sendParcelIcon from "../../src/assets/send-parcel.svg";
+import assingRiderIcon from '../../src/assets/assign-rider.svg'
 import paymentHistoryIcon from "../../src/assets/payment-history.png";
 import useAuth from "../hooks/useAuth";
+import useRole from "../hooks/useRole";
 
 const DashboardLayout = () => {
   const { user } = useAuth();
+  const { role } = useRole();
   return (
     <div className=" max-w-7xl mx-auto">
       <div className="flex justify-start items-center">
@@ -151,6 +154,83 @@ const DashboardLayout = () => {
                     Payment History
                   </span>
                 </NavLink>
+              </li>
+              {role === "admin" && (
+                <>
+                  <li>
+                    <NavLink
+                      to="/dashboard/approve-riders"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Approve Riders"
+                    >
+                      <FaMotorcycle />
+
+                      <span className="is-drawer-close:hidden">
+                        Approve Riders
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/dashboard/assign-rider"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Assign Rider"
+                    >
+                      <img
+                        src={assingRiderIcon}
+                        viewBox="0 0 24 24"
+                        strokeLinejoin="round"
+                        strokeLinecap="round"
+                        strokeWidth="2"
+                        fill="none"
+                        stroke="currentColor"
+                        className="my-1.5 inline-block size-4 text-primaryz"
+                        alt=""
+                      />
+
+                      <span className="is-drawer-close:hidden">
+                        Assign Riders
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/dashboard/manage-users"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Manage Users"
+                    >
+                      <FaUsers></FaUsers>
+
+                      <span className="is-drawer-close:hidden">
+                        Manage Users
+                      </span>
+                    </NavLink>
+                  </li>
+                </>
+              )}
+              <li>
+                <button
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Settings"
+                >
+                  {/* Settings icon */}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    strokeWidth="2"
+                    fill="none"
+                    stroke="currentColor"
+                    className="my-1.5 inline-block size-4"
+                  >
+                    <path d="M20 7h-9"></path>
+                    <path d="M14 17H5"></path>
+                    <circle cx="17" cy="17" r="3"></circle>
+                    <circle cx="7" cy="7" r="3"></circle>
+                  </svg>
+                  <span className="is-drawer-close:hidden">Settings</span>
+                </button>
               </li>
             </ul>
           </div>

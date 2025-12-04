@@ -34,7 +34,7 @@ const MyParcels = () => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/parcels/${id}`).then((res) => {
           if (res.data.deletedCount) {
-            refetch();
+          
             Swal.fire({
               title: "Deleted!",
               text: "Your parcel has been deleted.",
@@ -61,9 +61,10 @@ const MyParcels = () => {
 if(isLoading){
   return <Loading></Loading>
 }
-
+  refetch();
+console.log(parcels)
   return (
-    <div className="m-8 bg-base-100 rounded-lg">
+    <div className="m-2 p-3 bg-base-100 rounded-lg">
       <h2>My Parcels ({parcels.length})</h2>
 
       <div className="overflow-x-auto">
@@ -74,7 +75,9 @@ if(isLoading){
               <th>No.</th>
               <th>Name</th>
               <th>Cost</th>
+              <th>Tracking ID</th>
               <th>Payment</th>
+              <th>TransactionId ID</th>
               <th>Delivery Status</th>
               <th>Actions</th>
             </tr>
@@ -85,6 +88,7 @@ if(isLoading){
                 <th>{index + 1}</th>
                 <td>{parcel.parcelName}</td>
                 <td>{parcel.cost}</td>
+                <td>{parcel.trackingId}</td>
                 <td>
                   {parcel.paymentStatus === "paid" ? (
                     <span className="text-green-500">Paid</span>
@@ -103,7 +107,9 @@ if(isLoading){
                     // </Link>
                   )}
                 </td>
+                <td>{parcel.transactionId}</td>
                 <td>{parcel.deliveryStatus}</td>
+
                 <td className="flex items-center gap-3">
                   <button title="View Details" className="btn hover:bg-primary">
                     <PiListMagnifyingGlassBold />

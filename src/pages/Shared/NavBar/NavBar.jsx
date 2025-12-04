@@ -3,9 +3,10 @@ import { Link, NavLink } from "react-router";
 import { FaArrowCircleRight } from "react-icons/fa";
 import navLogo from "../../../assets/nav_logo.png";
 import useAuth from "../../../hooks/useAuth";
+import Loading from "../../../components/Loading/Loading";
 
 const NavBar = () => {
-  const { user, logOutUser, loading, setLoading } = useAuth();
+  const { user, logOutUser, loading} = useAuth();
   const photo = user?.photoURL || user?.providerData[0]?.photoURL;
   const handleLogout = () => {
     logOutUser();
@@ -55,7 +56,7 @@ const NavBar = () => {
     </>
   );
   if (loading) {
-    return setLoading(true);
+    return <Loading></Loading>;
   }
   return (
     <div className="navbar bg-base-100 shadow-sm rounded-lg">

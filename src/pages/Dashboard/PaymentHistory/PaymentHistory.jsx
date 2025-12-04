@@ -21,7 +21,7 @@ const PaymentHistory = () => {
   }
   console.log(payments);
   return (
-    <div className="m-8 p-8 bg-base-100 rounded-lg flex flex-col justify-center items-center">
+    <div className="m-2 p-3 bg-base-100 rounded-lg ">
       <h2>Payment History ({payments.length})</h2>
       <div className="overflow-x-auto">
         <table className="table table-zebra">
@@ -33,6 +33,7 @@ const PaymentHistory = () => {
               <th>Paid Time</th>
               <th>Payment Info</th>
               <th>Tracking ID</th>
+              <th>Transaction ID</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -44,6 +45,7 @@ const PaymentHistory = () => {
                 <td>{payment.paidAt}</td>
                 <td>৳ {payment.amount}</td>
                 <td>{payment.trackingId}</td>
+                <td>{payment.transactionId}</td>
                 <td>btns</td>
               </tr>
             ))}

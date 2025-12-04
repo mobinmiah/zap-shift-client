@@ -11,9 +11,9 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 const Register = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const axiosSecure = useAxiosSecure()
+  const axiosSecure = useAxiosSecure();
   const [passType, setPassType] = useState(false);
-  const { registerUser, updateUsersProfile } = useAuth();
+  const { registerUser, updateUsersProfile, loading } = useAuth();
   const {
     register,
     handleSubmit,
@@ -40,29 +40,33 @@ const Register = () => {
             photoURL: photoURL,
           };
 
-          axiosSecure.post('/users', userInfo)
-          .then(res=>{
-           if(res.data.insertedId){
-             console.log("user created in the databse");
-           }
+          axiosSecure.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              console.log("user created in the databse");
+              // update user profile
+              const updateProfile = {
+                displayName: data.name,
+                photoURL: photoURL,
+              };
+    
+              updateUsersProfile(updateProfile)
+                .then()
+                .catch((error) => console.log(error));
+              navigate(location?.state || "/");
+            }
           })
+          .catch(error=>console.log(error))
 
-          // update user profile
-          const updateProfile = {
-            displayName: data.name,
-            photoURL: photoURL,
-          };
-
-          updateUsersProfile(updateProfile)
-            .then()
-            .catch((error) => console.log(error));
-          navigate(location?.state || "/");
         });
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
+  if (loading) {
+    return <Loading></Loading>;
+  }
 
   return (
     <div>

@@ -20,8 +20,7 @@ const SocialButton = () => {
           photoURL: result.user.photoURL,
         };
 
-        axiosSecure.post("/users", userInfo).then((res) => {
-          console.log("user data saved in db", res.data);
+        axiosSecure.post("/users", userInfo).then(() => {
           navigate(location?.state || "/");
         });
       })

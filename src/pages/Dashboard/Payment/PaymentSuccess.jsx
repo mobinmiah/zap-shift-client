@@ -32,7 +32,7 @@ const PaymentSuccess = () => {
 
   return (
     paymentInfo && (
-      <div className="m-8 p-8 bg-base-100 rounded-lg flex flex-col justify-center items-center gap-10">
+      <div className="m-2 p-3 bg-base-100 rounded-lg flex flex-col justify-center items-center gap-10">
         <h2>Payment Successful</h2>
         <div>
           <p>See Transaction :{paymentInfo.transactionId}</p>
