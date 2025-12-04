@@ -85,7 +85,7 @@ const Register = () => {
               placeholder="Your Name"
             />
             {errors.name?.type === "required" && (
-              <p className="!text-error">Name is required</p>
+              <p className={`text-error!`}>Name is required</p>
             )}
             {/* photo field */}
             <label className="label">Photo</label>
@@ -96,7 +96,7 @@ const Register = () => {
               placeholder="Your Photo"
             />
             {errors.photo?.type === "required" && (
-              <p className="!text-error">Photo is required</p>
+              <p className={`text-error!`}>Photo is required</p>
             )}
             {/* email field */}
             <label className="label">Email</label>
@@ -107,7 +107,7 @@ const Register = () => {
               placeholder="Email"
             />
             {errors.email?.type === "required" && (
-              <p className="!text-error">Email is required</p>
+              <p className={`text-error!`}>Email is required</p>
             )}
             {/* password field */}
             <label className="label">Password</label>
@@ -128,15 +128,15 @@ const Register = () => {
             </div>
 
             {errors.password?.type === "required" && (
-              <p className="!text-error">Password is required</p>
+              <p className={`text-error!`}>Password is required</p>
             )}
             {errors.password?.type === "minLength" && (
-              <p className="!text-error">
+              <p className={`text-error!`}>
                 Password must be at least 6 characters or long
               </p>
             )}
             {errors.password?.type === "pattern" && (
-              <p className="!text-error">
+              <p className={`text-error!`}>
                 Password must contain at least one uppercase, at least one
                 lowercase, at least one special character and at least one
                 number
