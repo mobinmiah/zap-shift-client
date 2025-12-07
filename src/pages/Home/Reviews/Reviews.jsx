@@ -19,7 +19,7 @@ const Reviews = ({ reviewsPromise }) => {
   const reviews = use(reviewsPromise);
   // console.log(reviews);
   return (
-    <div className="container flex flex-col items-center gap-10">
+    <div className="container flex flex-col items-center gap-10 overflow-hidden">
       <img className="max-w-2xs" src={merchantIcon} alt="" />
       <div className="space-y-6 max-w-3xl mx-3">
         <h2>What our customers are sayings</h2>

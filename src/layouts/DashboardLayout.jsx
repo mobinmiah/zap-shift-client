@@ -1,17 +1,28 @@
 import React from "react";
-import { FaHome, FaMotorcycle, FaUsers } from "react-icons/fa";
+import {
+  FaHome,
+  FaMotorcycle,
+  FaSignOutAlt,
+  FaTasks,
+  FaUsers,
+} from "react-icons/fa";
 import { Link, NavLink, Outlet } from "react-router";
 import navLogo from "../assets/nav_logo.png";
 import myParcelIcon from "../../src/assets/my-parcel.svg";
 import sendParcelIcon from "../../src/assets/send-parcel.svg";
-import assingRiderIcon from '../../src/assets/assign-rider.svg'
+import assingRiderIcon from "../../src/assets/assign-rider.svg";
 import paymentHistoryIcon from "../../src/assets/payment-history.png";
 import useAuth from "../hooks/useAuth";
 import useRole from "../hooks/useRole";
 
 const DashboardLayout = () => {
-  const { user } = useAuth();
+  const { user, logOutUser } = useAuth();
   const { role } = useRole();
+
+  const handleLogOut = () => {
+    logOutUser();
+  };
+
   return (
     <div className=" max-w-7xl mx-auto">
       <div className="flex justify-start items-center">
@@ -155,6 +166,8 @@ const DashboardLayout = () => {
                   </span>
                 </NavLink>
               </li>
+
+              {/* admin links */}
               {role === "admin" && (
                 <>
                   <li>
@@ -195,6 +208,19 @@ const DashboardLayout = () => {
                   </li>
                   <li>
                     <NavLink
+                      to="/dashboard/assigned-deliveries-to-riders"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Assigned Deliveries to Riders"
+                    >
+                      <FaTasks />
+
+                      <span className="is-drawer-close:hidden">
+                        Assigned Deliveries to Riders
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
                       to="/dashboard/manage-users"
                       className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                       data-tip="Manage Users"
@@ -203,6 +229,25 @@ const DashboardLayout = () => {
 
                       <span className="is-drawer-close:hidden">
                         Manage Users
+                      </span>
+                    </NavLink>
+                  </li>
+                </>
+              )}
+
+              {/* rider links */}
+              {role === "rider" && (
+                <>
+                  <li>
+                    <NavLink
+                      to="/dashboard/assigned-deliveries"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Assigned Deliveries"
+                    >
+                      <FaTasks />
+
+                      <span className="is-drawer-close:hidden">
+                        Assigned Deliveries
                       </span>
                     </NavLink>
                   </li>
@@ -230,6 +275,17 @@ const DashboardLayout = () => {
                     <circle cx="7" cy="7" r="3"></circle>
                   </svg>
                   <span className="is-drawer-close:hidden">Settings</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={handleLogOut}
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="LogOut"
+                >
+                  <FaSignOutAlt />
+
+                  <span className="is-drawer-close:hidden">LogOut</span>
                 </button>
               </li>
             </ul>

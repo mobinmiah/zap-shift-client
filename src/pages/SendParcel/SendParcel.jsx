@@ -180,7 +180,7 @@ const SendParcel = () => {
             {/* sender contact */}
             <label className="label">Sender Contact No</label>
             <input
-              type="number"
+              type="text"
               {...register("senderContact")}
               className="input w-full focus:outline-primary"
               placeholder="Sender Contact No"
@@ -284,7 +284,7 @@ const SendParcel = () => {
             {/* receiver contact */}
             <label className="label">Receiver Contact No</label>
             <input
-              type="number"
+              type="text"
               {...register("receiverContact")}
               className="input w-full focus:outline-primary"
               placeholder="Receiver Contact No"

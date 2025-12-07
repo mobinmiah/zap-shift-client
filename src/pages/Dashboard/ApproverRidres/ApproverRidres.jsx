@@ -86,7 +86,13 @@ const ApproverRidres = () => {
                 >
                   {rider.status}
                 </td>
-                <td>{rider.workStatus}</td>
+                <td
+                  className={`${
+                    rider.workStatus === "available" ? "text-success" : "text-error"
+                  }`}
+                >
+                  {rider.workStatus}
+                </td>
                 <td>
                   <button className="btn bg-primary tooltip" data-tip="Details">
                     <CgDetailsMore />

@@ -22,6 +22,9 @@ import ApproverRidres from "../pages/Dashboard/ApproverRidres/ApproverRidres";
 import ManageUsers from "../pages/Dashboard/ManageUsers/ManageUsers";
 import AdminRoute from "./AdminRoute";
 import AssignRider from "../pages/Dashboard/AssignRider/AssignRider";
+import AssignedDeliveriesToRiders from "../pages/Dashboard/AssignedDeliveriesToRiders/AssignedDeliveriesToRiders";
+import AssignedDeliveries from "../pages/Dashboard/AssignedDeliveries/AssignedDeliveries";
+import RiderRoute from "./RiderRoute";
 
 export const router = createBrowserRouter([
   {
@@ -134,11 +137,27 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "assigned-deliveries-to-riders",
+        element: (
+          <AdminRoute>
+            <AssignedDeliveriesToRiders></AssignedDeliveriesToRiders>
+          </AdminRoute>
+        ),
+      },
+      {
         path: "manage-users",
         element: (
           <AdminRoute>
             <ManageUsers></ManageUsers>
           </AdminRoute>
+        ),
+      },
+      {
+        path: "assigned-deliveries",
+        element: (
+          <RiderRoute>
+            <AssignedDeliveries></AssignedDeliveries>
+          </RiderRoute>
         ),
       },
     ],

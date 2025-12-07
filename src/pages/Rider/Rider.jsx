@@ -8,6 +8,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Rider = () => {
   const { user } = useAuth();
+  console.log(user)
   const axiosSecure = useAxiosSecure();
   const branches = useLoaderData();
   const {

@@ -3,7 +3,7 @@ import { FaQuoteLeft } from "react-icons/fa";
 const ReviewCard = ({ review }) => {
   const { review: testimonial, user_photoURL, userName, user_email } = review;
   return (
-    <div className=" max-w-sm mx-auto p-6 bg-base-100 rounded-xl shadow-sm border border-base-200">
+    <div className=" max-w-xs mx-auto p-6 bg-base-100 rounded-xl shadow-sm border border-base-200">
       <FaQuoteLeft className="text-3xl text-primary mb-4" />
       <p>{testimonial}</p>
       <div className="border-t border-dashed border-base-300 my-4"></div>
