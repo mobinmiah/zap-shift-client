@@ -29,7 +29,7 @@ const Rider = () => {
 
   const handleRiderApplication = (data) => {
 
-    axiosSecure.post("riders", data).then((res) => {
+    axiosSecure.post("/riders", data).then((res) => {
       if (res.data.insertedId) {
         Swal.fire({
           position: "top-end",

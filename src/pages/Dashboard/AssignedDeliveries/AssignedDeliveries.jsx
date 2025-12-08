@@ -48,7 +48,7 @@ const AssignedDeliveries = () => {
   };
 
   const handleRejectDelivery = (parcel) => {
-    const statusInfo = { deliveryStatus: "pending-pickup" };
+    const statusInfo = { deliveryStatus: "pending_pickup" };
     axiosSecure
       .patch(`/parcels/${parcel._id}/reject`, statusInfo)
       .then((res) => {

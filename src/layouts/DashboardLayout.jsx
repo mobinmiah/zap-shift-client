@@ -27,7 +27,7 @@ const DashboardLayout = () => {
   return (
     <div className=" max-w-7xl mx-auto">
       <div className="flex justify-start items-center">
-        <Link to="/" className="w-fit py-3 pl-3 bg-base-100">
+        <Link to="/" className="w-fit py-3 pl-3 bg-base-100 hidden md:block">
           <img src={navLogo} className="h-10" alt="" />
         </Link>
 
@@ -54,8 +54,11 @@ const DashboardLayout = () => {
               <path d="M14 10l2 2l-2 2"></path>
             </svg>
           </label>
-          <h3 className="px-4">Dashboard</h3>
+          <h3 className="px-4 hidden md:block">Dashboard</h3>
 
+          <Link to="/" className="w-fit py-3 pl-3 bg-base-100 block md:hidden">
+            <img src={navLogo} className="h-10" alt="" />
+          </Link>
           <div>
             {user && (
               <div className="flex justify-between items-center gap-3">
@@ -95,7 +98,7 @@ const DashboardLayout = () => {
 
               <li>
                 <Link
-                  to="/"
+                  to="/dashboard"
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="Home"
                 >

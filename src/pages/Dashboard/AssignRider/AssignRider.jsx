@@ -9,10 +9,10 @@ const AssignRider = () => {
   const axiosSecure = useAxiosSecure();
   const modalRef = useRef();
   const { isLoading, data: parcels = [] } = useQuery({
-    queryKey: ["parcels", "pending-pickup"],
+    queryKey: ["parcels", "pending_pickup"],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        "/parcels?deliveryStatus=pending-pickup"
+        "/parcels?deliveryStatus=pending_pickup"
       );
       return res.data;
     },
@@ -40,13 +40,15 @@ const AssignRider = () => {
       riderEmail: rider.email,
       riderName: rider.name,
       parcelId: selectedParcel._id,
-      trackingId: selectedParcel.trackingId
+      trackingId: selectedParcel.trackingId,
     };
 
     axiosSecure
       .patch(`/parcels/${selectedParcel._id}/assign`, riderInfo)
       .then((res) => {
         if (res.data.modifiedCount) {
+          refetch();
+          modalRef.current.close();
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -54,8 +56,6 @@ const AssignRider = () => {
             showConfirmButton: false,
             timer: 2500,
           });
-          refetch();
-          modalRef.current.close();
         }
       });
   };
@@ -68,7 +68,10 @@ const AssignRider = () => {
     <div className="m-2 p-3 bg-base-100 rounded-lg">
       <h2>Assign a Rider : {parcels.length}</h2>
       <div className="overflow-x-auto">
-        <table className="table table-zebra">
+        <table
+          className="table table-zebra w-full whitespace-nowrap
+"
+        >
           {/* head */}
           <thead>
             <tr>

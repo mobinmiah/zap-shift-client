@@ -21,44 +21,61 @@ const Coverage = () => {
   };
 
   return (
-    <div className="mt-8 mb-28 py-20 px-24 space-y-12 bg-base-100 rounded-2xl">
+    <div className="mt-3 md:mt-8 mb-20 py-10 px-4 md:px-10 lg:px-24 space-y-10 bg-base-100 rounded-2xl">
       <title>Coverage | zapShip</title>
-      <h2 className={`text-start!`}>We are available in 64 districts</h2>
-      <div className="relative w-80">
-        <form onSubmit={handleSearch}>
-          {" "}
-          <button
-            type="submit"
-            className="btn bg-primary font-bold text-xl text-secondary rounded-r-full absolute left-56"
-          >
-            Search
-          </button>
+
+      {/* Title */}
+      <h2 className="text-2xl md:text-3xl font-bold text-left">
+        We are available in 64 districts
+      </h2>
+
+      {/* Search Bar */}
+      <div className="w-full max-w-md">
+        <form onSubmit={handleSearch} className="flex">
           <input
             name="location"
-            className="outline-1 outline-primary p-2 w-full rounded-full"
+            className="outline-1 outline-primary p-3 w-full rounded-l-full"
             type="text"
             placeholder="Search Location"
           />
+          <button
+            type="submit"
+            className="btn bg-primary font-bold text-lg text-secondary rounded-r-full px-6"
+          >
+            Search
+          </button>
         </form>
       </div>
+
+      {/* Map */}
       <div>
         <MapContainer
           center={position}
           zoom={8}
           scrollWheelZoom={false}
-          className="h-[800px]"
+          className="
+            w-full 
+            h-[300px] 
+            sm:h-[400px] 
+            md:h-[500px] 
+            lg:h-[700px] 
+            xl:h-[800px]
+            rounded-xl
+            overflow-hidden
+          "
           ref={mapRef}
         >
           <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            attribution="&copy; OpenStreetMap contributors"
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+
           {branches.map((branch, index) => (
             <Marker key={index} position={[branch.latitude, branch.longitude]}>
               <Popup>
                 <strong>{branch.district}</strong>
                 <br />
-                Coverd Area : {branch.covered_area.join(", ")}
+                Covered Area: {branch.covered_area.join(", ")}
               </Popup>
             </Marker>
           ))}

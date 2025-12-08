@@ -12,12 +12,12 @@ const useAxiosSecure = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const reqInterceptor = axiosSecure.interceptors.request.use(
-     (config) => {
+      async (config) => {
         if (user) {
-          const tokenByMe =
-            user.accessToken || user.stsTokenManager.accessToken;
-          // const tokenByGPT = await user.getIdToken(true);
-          config.headers.Authorization = `Bearer ${tokenByMe}`;
+          // const tokenByMe =
+          //   user.accessToken || user.stsTokenManager.accessToken;
+          const tokenByGPT = await user.getIdToken(true);
+          config.headers.Authorization = `Bearer ${tokenByGPT}`;
         }
         return config;
       }

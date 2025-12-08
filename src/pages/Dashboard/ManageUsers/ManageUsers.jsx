@@ -122,7 +122,10 @@ const ManageUsers = () => {
         </div>
       </div>
       <div className="overflow-x-auto">
-        <table className="table">
+        <table
+          className="table table-zebra w-full whitespace-nowrap
+"
+        >
           {/* head */}
           <thead>
             <tr>

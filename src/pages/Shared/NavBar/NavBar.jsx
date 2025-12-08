@@ -6,7 +6,7 @@ import useAuth from "../../../hooks/useAuth";
 import Loading from "../../../components/Loading/Loading";
 
 const NavBar = () => {
-  const { user, logOutUser, loading} = useAuth();
+  const { user, logOutUser, loading } = useAuth();
   const photo = user?.photoURL || user?.providerData[0]?.photoURL;
   const handleLogout = () => {
     logOutUser();
@@ -32,16 +32,11 @@ const NavBar = () => {
         <NavLink to="/services">Services</NavLink>
       </li>
       <li className="border border-primary rounded-lg mr-2">
-        <NavLink to="/coverage">Coverage</NavLink>
+        <NavLink to="/coverage">Coverage Areas</NavLink>
       </li>
+
       <li className="border border-primary rounded-lg mr-2">
-        <NavLink to="/about">About Us</NavLink>
-      </li>
-      <li className="border border-primary rounded-lg mr-2">
-        <NavLink to="/sendParcel">Send Parcel</NavLink>
-      </li>
-      <li className="border border-primary rounded-lg mr-2">
-        <NavLink to="/pricing">Pricing</NavLink>
+        <NavLink to="/sendParcel">Send a Parcel</NavLink>
       </li>
       <li className="border border-primary rounded-lg mr-2">
         <NavLink to="/rider">Be a Rider</NavLink>
@@ -53,9 +48,20 @@ const NavBar = () => {
           </li>
         </>
       )}
+      <li className="border border-primary rounded-lg mr-2">
+        <NavLink to="/about">About Us</NavLink>
+      </li>
+      <li>
+        <button
+          onClick={handleLogout}
+          className="btn border border-primary rounded-lg mr-2 "
+        >
+          Log Out
+        </button>
+      </li>
     </>
   );
-  if (loading) {
+  if (loading || !user) {
     return <Loading></Loading>;
   }
   return (
@@ -81,7 +87,7 @@ const NavBar = () => {
           </div>
           <ul
             tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow z-10"
           >
             {navLinks}
           </ul>
@@ -113,7 +119,10 @@ const NavBar = () => {
                   <div className="w-10 h-10 rounded-full bg-primary"></div>
                 )}
               </Link>
-              <button onClick={handleLogout} className="btn bg-primary">
+              <button
+                onClick={handleLogout}
+                className="btn bg-primary hidden md:block"
+              >
                 Log Out
                 <FaArrowCircleRight className="-rotate-45"></FaArrowCircleRight>
               </button>

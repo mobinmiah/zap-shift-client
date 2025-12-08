@@ -27,6 +27,8 @@ import AssignedDeliveries from "../pages/Dashboard/AssignedDeliveries/AssignedDe
 import RiderRoute from "./RiderRoute";
 import CompletedDeliveries from "../pages/Dashboard/CompletedDeliveries/CompletedDeliveries";
 import TrackParcel from "../pages/TrackParcel/TrackParcel";
+import DashBoardHome from "../pages/Dashboard/DashBoardHome/DashBoardHome";
+
 
 export const router = createBrowserRouter([
   {
@@ -106,6 +108,10 @@ export const router = createBrowserRouter([
     ),
     // errorElement: <ErrorPage></ErrorPage>,
     children: [
+      {
+        index:true,
+        Component: DashBoardHome
+      },
       {
         path: "my-parcels",
         Component: MyParcels,

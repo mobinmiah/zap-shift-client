@@ -38,7 +38,20 @@ const PaymentSuccess = () => {
           <p>See Transaction :{paymentInfo.transactionId}</p>
           <p>Track your parcel : {paymentInfo.trackingId}</p>
         </div>
-        <Link to="/dashboard/payment-history" className="btn bg-primary text-xl text-secondary font-bold">See All Payments</Link>
+        <div className="flex items-center gap-2">
+          <Link
+            to="/dashboard/payment-history"
+            className="btn bg-primary text-xl text-secondary font-bold"
+          >
+            See All Payments
+          </Link>
+          <Link
+            to="/dashboard/my-parcels"
+            className="btn bg-primary text-xl text-secondary font-bold"
+          >
+            See All Parcels
+          </Link>
+        </div>
       </div>
     )
   );

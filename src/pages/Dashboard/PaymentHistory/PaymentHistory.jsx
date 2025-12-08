@@ -24,7 +24,10 @@ const PaymentHistory = () => {
     <div className="m-2 p-3 bg-base-100 rounded-lg ">
       <h2>Payment History ({payments.length})</h2>
       <div className="overflow-x-auto">
-        <table className="table table-zebra">
+        <table
+          className="table table-zebra w-full whitespace-nowrap
+"
+        >
           <thead>
             <tr>
               <th>No.</th>

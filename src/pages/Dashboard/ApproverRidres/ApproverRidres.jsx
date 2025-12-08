@@ -6,10 +6,15 @@ import { FaTrashCan } from "react-icons/fa6";
 import { IoPersonRemoveSharp } from "react-icons/io5";
 import Swal from "sweetalert2";
 import { CgDetailsMore } from "react-icons/cg";
+import Loading from "../../../components/Loading/Loading";
 
 const ApproverRidres = () => {
   const axiosSecure = useAxiosSecure();
-  const { data: riders = [], refetch } = useQuery({
+  const {
+    refetch,
+    data: riders = [],
+    isLoading,
+  } = useQuery({
     queryKey: ["riders", "pending"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/riders`);
@@ -37,8 +42,35 @@ const ApproverRidres = () => {
     updateRiderStatus(rider, "approved");
   };
 
-  const handleRejection = (rider) => {
-    updateRiderStatus(rider, "rejected");
+  const handleRejection = (rider, user) => {
+    Swal.fire({
+      title: `Reject ${rider.name}'s rider request?`,
+      text: "They will be marked as a normal user again.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, reject!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        // 1. Update rider status
+        await axiosSecure.patch(`/riders/${rider._id}`, {
+          status: "rejected",
+          email: rider.email,
+        });
+
+        // 2. Update user role → user
+        await axiosSecure.patch(`/users/${user._id}/role`, {
+          role: "user",
+        });
+
+        Swal.fire({
+          title: `${user.displayName} is now a normal user`,
+          icon: "success",
+        });
+      }
+    });
+    refetch();
   };
 
   const handleDeleteRider = (id) => {
@@ -55,11 +87,19 @@ const ApproverRidres = () => {
       }
     });
   };
+
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
+
   return (
     <div className="m-2 p-3 bg-base-100 rounded-lg">
       <h2>Riders Approval Pending: ({riders.length})</h2>
       <div className="overflow-x-auto">
-        <table className="table table-zebra">
+        <table
+          className="table table-zebra w-full whitespace-nowrap
+"
+        >
           {/* head */}
           <thead>
             <tr>
@@ -88,7 +128,9 @@ const ApproverRidres = () => {
                 </td>
                 <td
                   className={`${
-                    rider.workStatus === "available" ? "text-success" : "text-error"
+                    rider.workStatus === "available"
+                      ? "text-success"
+                      : "text-error"
                   }`}
                 >
                   {rider.workStatus}
@@ -105,7 +147,7 @@ const ApproverRidres = () => {
                     <FaUserCheck />
                   </button>
                   <button
-                    onClick={() => handleRejection(rider)}
+                    onClick={() => handleRejection(rider, rider._id)}
                     className="btn bg-red-400 tooltip"
                     data-tip="Reject"
                   >

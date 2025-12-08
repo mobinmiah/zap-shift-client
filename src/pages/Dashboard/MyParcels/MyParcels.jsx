@@ -55,6 +55,7 @@ const MyParcels = () => {
       parcelId: parcel._id,
       senderEmail: parcel.senderEmail,
       parcelName: parcel.parcelName,
+      trackingId: parcel.trackingId,
     };
     const res = await axiosSecure.post("/checkuot-sesion", paymentInfo);
     window.location.assign(res.data.url);
@@ -68,9 +69,11 @@ const MyParcels = () => {
   return (
     <div className="m-2 p-3 bg-base-100 rounded-lg">
       <h2>My Parcels ({parcels.length})</h2>
-
       <div className="overflow-x-auto">
-        <table className="table table-zebra">
+        <table
+          className="table table-zebra w-full whitespace-nowrap
+"
+        >
           {/* head */}
           <thead>
             <tr>
@@ -90,6 +93,7 @@ const MyParcels = () => {
                 <th>{index + 1}</th>
                 <td>{parcel.parcelName}</td>
                 <td>{parcel.cost}</td>
+
                 <td>
                   {parcel.trackingId ? (
                     <Link
@@ -99,9 +103,10 @@ const MyParcels = () => {
                       {parcel.trackingId}
                     </Link>
                   ) : (
-                    "Please Pay to get TID"
+                    "you can track after payment"
                   )}
                 </td>
+
                 <td>
                   {parcel.paymentStatus === "paid" ? (
                     <span className="text-green-500 font-semibold">Paid</span>
@@ -112,15 +117,14 @@ const MyParcels = () => {
                     >
                       Pay
                     </button>
-
-                    // <Link to={`/dashboard/payment/${parcel._id}`}>
-                    //   <button className="btn btn-sm btn-primary text-secondary">
-                    //     Pay
-                    //   </button>
-                    // </Link>
                   )}
                 </td>
-                <td>{parcel.transactionId || "Please Pay to get TRX"}</td>
+
+                <td>
+                  {parcel.transactionId ||
+                    "Transaction Will Apear after payment"}
+                </td>
+
                 <td>
                   {(parcel.deliveryStatus === "rider_on_the_way" &&
                     "Rider on the way") ||
@@ -130,7 +134,9 @@ const MyParcels = () => {
                       "Parcel is Delivered") ||
                     (parcel.deliveryStatus === "pending_pickup" &&
                       "Pending for Pick Up") ||
-                    "Please Pay to get Status"}
+                    (parcel.deliveryStatus === "driver_assigned" &&
+                      "Rider Assigned") ||
+                    "Waiting For Payment"}
                 </td>
 
                 <td className="flex items-center gap-3">
