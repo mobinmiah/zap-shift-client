@@ -40,10 +40,11 @@ const AssignRider = () => {
       riderEmail: rider.email,
       riderName: rider.name,
       parcelId: selectedParcel._id,
+      trackingId: selectedParcel.trackingId
     };
 
     axiosSecure
-      .patch(`/parcels/${selectedParcel._id}`, riderInfo)
+      .patch(`/parcels/${selectedParcel._id}/assign`, riderInfo)
       .then((res) => {
         if (res.data.modifiedCount) {
           Swal.fire({
@@ -53,7 +54,7 @@ const AssignRider = () => {
             showConfirmButton: false,
             timer: 2500,
           });
-         
+          refetch();
           modalRef.current.close();
         }
       });
@@ -62,7 +63,7 @@ const AssignRider = () => {
   if (isLoading) {
     return <Loading></Loading>;
   }
- refetch();
+
   return (
     <div className="m-2 p-3 bg-base-100 rounded-lg">
       <h2>Assign a Rider : {parcels.length}</h2>

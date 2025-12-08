@@ -14,6 +14,7 @@ import assingRiderIcon from "../../src/assets/assign-rider.svg";
 import paymentHistoryIcon from "../../src/assets/payment-history.png";
 import useAuth from "../hooks/useAuth";
 import useRole from "../hooks/useRole";
+import { SiGoogletasks } from "react-icons/si";
 
 const DashboardLayout = () => {
   const { user, logOutUser } = useAuth();
@@ -248,6 +249,19 @@ const DashboardLayout = () => {
 
                       <span className="is-drawer-close:hidden">
                         Assigned Deliveries
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/dashboard/completed-deliveries"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Completed Deliveries"
+                    >
+                      <SiGoogletasks />
+
+                      <span className="is-drawer-close:hidden">
+                        Completed Deliveries
                       </span>
                     </NavLink>
                   </li>

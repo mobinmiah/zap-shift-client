@@ -25,6 +25,8 @@ import AssignRider from "../pages/Dashboard/AssignRider/AssignRider";
 import AssignedDeliveriesToRiders from "../pages/Dashboard/AssignedDeliveriesToRiders/AssignedDeliveriesToRiders";
 import AssignedDeliveries from "../pages/Dashboard/AssignedDeliveries/AssignedDeliveries";
 import RiderRoute from "./RiderRoute";
+import CompletedDeliveries from "../pages/Dashboard/CompletedDeliveries/CompletedDeliveries";
+import TrackParcel from "../pages/TrackParcel/TrackParcel";
 
 export const router = createBrowserRouter([
   {
@@ -70,10 +72,14 @@ export const router = createBrowserRouter([
         loader: () => fetch("/serviceBranches.json").then((res) => res.json()),
         hydrateFallbackElement: <Loading></Loading>,
       },
+      // {
+      //   path: "addParsel",
+      //   element: <></>,
+      // },
       {
-        path: "addParsel",
-        element: <></>,
-      },
+        path:'track-parcel/:trackingId',
+        Component: TrackParcel
+      }
     ],
   },
   {
@@ -157,6 +163,14 @@ export const router = createBrowserRouter([
         element: (
           <RiderRoute>
             <AssignedDeliveries></AssignedDeliveries>
+          </RiderRoute>
+        ),
+      },
+      {
+        path: "completed-deliveries",
+        element: (
+          <RiderRoute>
+            <CompletedDeliveries></CompletedDeliveries>
           </RiderRoute>
         ),
       },

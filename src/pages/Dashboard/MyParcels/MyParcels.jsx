@@ -58,13 +58,12 @@ const MyParcels = () => {
     };
     const res = await axiosSecure.post("/checkuot-sesion", paymentInfo);
     window.location.assign(res.data.url);
-
   };
 
   if (loading || isLoading) {
     return <Loading></Loading>;
   }
-    refetch();
+  refetch();
   console.log(parcels);
   return (
     <div className="m-2 p-3 bg-base-100 rounded-lg">
@@ -91,10 +90,21 @@ const MyParcels = () => {
                 <th>{index + 1}</th>
                 <td>{parcel.parcelName}</td>
                 <td>{parcel.cost}</td>
-                <td>{parcel.trackingId}</td>
+                <td>
+                  {parcel.trackingId ? (
+                    <Link
+                      to={`/track-parcel/${parcel.trackingId}`}
+                      className="link"
+                    >
+                      {parcel.trackingId}
+                    </Link>
+                  ) : (
+                    "Please Pay to get TID"
+                  )}
+                </td>
                 <td>
                   {parcel.paymentStatus === "paid" ? (
-                    <span className="text-green-500">Paid</span>
+                    <span className="text-green-500 font-semibold">Paid</span>
                   ) : (
                     <button
                       onClick={() => handlePayment(parcel)}
@@ -110,8 +120,18 @@ const MyParcels = () => {
                     // </Link>
                   )}
                 </td>
-                <td>{parcel.transactionId}</td>
-                <td>{parcel.deliveryStatus}</td>
+                <td>{parcel.transactionId || "Please Pay to get TRX"}</td>
+                <td>
+                  {(parcel.deliveryStatus === "rider_on_the_way" &&
+                    "Rider on the way") ||
+                    (parcel.deliveryStatus === "parcel_picked_up" &&
+                      "Parcels is Picked Up") ||
+                    (parcel.deliveryStatus === "parcel_delivered" &&
+                      "Parcel is Delivered") ||
+                    (parcel.deliveryStatus === "pending_pickup" &&
+                      "Pending for Pick Up") ||
+                    "Please Pay to get Status"}
+                </td>
 
                 <td className="flex items-center gap-3">
                   <button title="View Details" className="btn hover:bg-primary">

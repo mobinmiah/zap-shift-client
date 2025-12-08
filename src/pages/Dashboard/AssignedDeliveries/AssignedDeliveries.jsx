@@ -23,8 +23,14 @@ const AssignedDeliveries = () => {
     },
   });
 
-  const handleAcceptDelivery = (parcel) => {
-    const statusInfo = { deliveryStatus: "rider_on_the_way" };
+  const handleDeliveryStatusUpdate = (parcel, status) => {
+    const statusInfo = {
+      deliveryStatus: status,
+      riderId: parcel.riderId,
+      trackingId: parcel.trackingId,
+    };
+
+    const message = `Parcel is Updated with ${status.split("_").join(" ")}`;
     axiosSecure
       .patch(`/parcels/${parcel._id}/status`, statusInfo)
       .then((res) => {
@@ -33,7 +39,7 @@ const AssignedDeliveries = () => {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: `Thank you for accepting`,
+            title: message,
             showConfirmButton: false,
             timer: 2500,
           });
@@ -66,54 +72,93 @@ const AssignedDeliveries = () => {
   return (
     <div className="m-2 p-3 bg-base-100 rounded-lg">
       <h2>Assigned Pending to Pickup : {parcels.length}</h2>
-      <div className="overflow-x-auto">
-        <table className="table table-zebra">
-          {/* head */}
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Cost</th>
-              <th>Pickup District</th>
-              <th>Destination</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {parcels.map((parcel, index) => (
-              <tr key={parcel._id}>
-                <th>{index + 1}</th>
-                <td>{parcel.parcelName}</td>
-                <td>{parcel.cost}</td>
-                <td>{parcel.senderDistrict}</td>
-                <td>{parcel.receiverDistrict}</td>
-                <td>
-                  {parcel.deliveryStatus === "driver_assigned" ? (
-                    <>
-                      <button
-                        onClick={() => handleAcceptDelivery(parcel)}
-                        className="btn bg-primary tooltip"
-                        data-tip="Accept Delivery"
-                      >
-                        ✔️
-                      </button>
-                      <button
-                        onClick={() => handleRejectDelivery(parcel)}
-                        className="btn bg-primary tooltip"
-                        data-tip="Reject Delivery"
-                      >
-                        ❌
-                      </button>
-                    </>
-                  ) : (
-                    <span>Delivery Accepted</span>
-                  )}
-                </td>
+      {parcels.length === 0 ? (
+        <div className="mt-5">
+          <h3>No parcels have been Assigned to you</h3>
+        </div>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="table table-zebra">
+            {/* head */}
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Cost</th>
+                <th>Pickup District</th>
+                <th>Destination</th>
+                <th>Confirm</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {parcels.map((parcel, index) => (
+                <tr key={parcel._id}>
+                  <th>{index + 1}</th>
+                  <td>{parcel.parcelName}</td>
+                  <td>{parcel.cost}</td>
+                  <td>{parcel.senderDistrict}</td>
+                  <td>{parcel.receiverDistrict}</td>
+                  <td>
+                    {parcel.deliveryStatus === "driver_assigned" ? (
+                      <>
+                        <button
+                          onClick={() =>
+                            handleDeliveryStatusUpdate(
+                              parcel,
+                              "rider_on_the_way"
+                            )
+                          }
+                          className="btn bg-primary tooltip"
+                          data-tip="Accept Delivery"
+                        >
+                          ✔️
+                        </button>
+                        <button
+                          onClick={() => handleRejectDelivery(parcel)}
+                          className="btn bg-primary tooltip"
+                          data-tip="Reject Delivery"
+                        >
+                          ❌
+                        </button>
+                      </>
+                    ) : (
+                      <span>Delivery Accepted</span>
+                    )}
+                  </td>
+                  <td className="flex items-center gap-1">
+                    {parcel.deliveryStatus === "parcel_picked_up" ? (
+                      "PickedUp"
+                    ) : (
+                      <button
+                        onClick={() =>
+                          handleDeliveryStatusUpdate(parcel, "parcel_picked_up")
+                        }
+                        className="btn bg-primary tooltip"
+                        data-tip="Mark as Picked Up"
+                      >
+                        {parcel.deliveryStatus === "parcel_picked_up"
+                          ? "PickedUp"
+                          : "✅"}
+                      </button>
+                    )}
+
+                    <button
+                      onClick={() =>
+                        handleDeliveryStatusUpdate(parcel, "parcel_delivered")
+                      }
+                      className="btn bg-primary tooltip"
+                      data-tip="Mark as Delivered"
+                    >
+                      ☑️
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };
