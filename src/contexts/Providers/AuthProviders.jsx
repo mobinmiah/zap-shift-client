@@ -28,6 +28,7 @@ const AuthProviders = ({ children }) => {
   };
 
   const updateUsersProfile = (profile) => {
+    setLoading(true)
     return updateProfile(auth.currentUser, profile);
   };
 
@@ -37,6 +38,7 @@ const AuthProviders = ({ children }) => {
   };
 
   const googleSignIn = () => {
+    setLoading(true)
     return signInWithPopup(auth, googleProvider);
   };
 

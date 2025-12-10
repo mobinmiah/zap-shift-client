@@ -48,7 +48,7 @@ export const router = createBrowserRouter([
         path: "coverage",
         Component: Coverage,
         loader: () => fetch("/serviceBranches.json").then((res) => res.json()),
-        hydrateFallbackElement: <Loading></Loading>,
+        // hydrateFallbackElement: <Loading></Loading>,
       },
       {
         path: "about",
@@ -62,7 +62,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: () => fetch("/serviceBranches.json").then((res) => res.json()),
-        hydrateFallbackElement: <Loading></Loading>,
+        // hydrateFallbackElement: <Loading></Loading>,
       },
       {
         path: "rider",
@@ -72,7 +72,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: () => fetch("/serviceBranches.json").then((res) => res.json()),
-        hydrateFallbackElement: <Loading></Loading>,
+        // hydrateFallbackElement: <Loading></Loading>,
       },
       // {
       //   path: "addParsel",

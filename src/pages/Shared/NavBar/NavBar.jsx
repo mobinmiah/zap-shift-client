@@ -6,7 +6,7 @@ import useAuth from "../../../hooks/useAuth";
 import Loading from "../../../components/Loading/Loading";
 
 const NavBar = () => {
-  const { user, logOutUser, loading } = useAuth();
+  const { user, logOutUser} = useAuth();
   const photo = user?.photoURL || user?.providerData[0]?.photoURL;
   const handleLogout = () => {
     logOutUser();
@@ -51,19 +51,17 @@ const NavBar = () => {
       <li className="border border-primary rounded-lg mr-2">
         <NavLink to="/about">About Us</NavLink>
       </li>
-      <li>
+      <li className="border border-primary rounded-lg mr-2 md:hidden">
         <button
           onClick={handleLogout}
-          className="btn border border-primary rounded-lg mr-2 "
+          className="btn bg-primary"
         >
           Log Out
         </button>
       </li>
     </>
   );
-  if (loading || !user) {
-    return <Loading></Loading>;
-  }
+
   return (
     <div className="navbar bg-base-100 shadow-sm rounded-lg">
       <div className="navbar-start">
@@ -121,7 +119,7 @@ const NavBar = () => {
               </Link>
               <button
                 onClick={handleLogout}
-                className="btn bg-primary hidden md:block"
+                className="btn bg-primary hidden md:flex items-center"
               >
                 Log Out
                 <FaArrowCircleRight className="-rotate-45"></FaArrowCircleRight>

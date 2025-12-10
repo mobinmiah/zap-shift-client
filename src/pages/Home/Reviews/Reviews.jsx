@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React from "react";
 import merchantIcon from "../../../assets/location-merchant.png";
 import ReviewCard from "./ReviewCard";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -10,16 +10,33 @@ import "swiper/css/pagination";
 
 // Modules
 import { Autoplay, EffectCoverflow, Pagination } from "swiper/modules";
+import { useQuery } from "@tanstack/react-query";
+import useAxios from "../../../hooks/useAxios";
+import Loading from "../../../components/Loading/Loading";
 
-const Reviews = ({ reviewsPromise }) => {
-  const reviews = use(reviewsPromise);
+const Reviews = () => {
+  // const reviews = use(reviewsPromise);
+  const axios = useAxios();
+
+  const { data: reviews = [], isLoading } = useQuery({
+    queryKey: ["reviews"],
+    queryFn: async () => {
+      const res = await axios.get("/reviews", { timeout: 3000 });
+      return res.data;
+    },
+  });
+
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
+
+  console.log(reviews)
 
   return (
     <div className="container mx-auto px-4 flex flex-col items-center gap-10 overflow-hidden">
-      {/* Top Icon */}
+      Top Icon
       <img className="w-32 md:w-40" src={merchantIcon} alt="Merchant" />
 
-      {/* Heading */}
       <div className="space-y-4 max-w-3xl text-center">
         <h2 className="text-2xl md:text-3xl font-bold">
           What our customers are saying
@@ -31,7 +48,6 @@ const Reviews = ({ reviewsPromise }) => {
         </p>
       </div>
 
-      {/* Swiper */}
       <Swiper
         modules={[EffectCoverflow, Pagination, Autoplay]}
         effect="coverflow"
