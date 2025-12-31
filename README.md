@@ -17,20 +17,12 @@ The application is built with scalability, security, and performance in mind.
 
 ---
 
-## 🖼 Screenshot
-![ZapShift Screenshot](screenshot.png)
-
-*(Upload a clean screenshot of your project and name it `screenshot.png`)*
-
----
-
 ## 🧰 Technologies Used
 
 **Frontend:** React, Tailwind CSS  
 **Backend:** Node.js, Express.js  
 **Database:** MongoDB  
-**Authentication:** Firebase  
-**Security:** JWT  
+**Authentication:** Firebase    
 **Tools:** Git, GitHub, VS Code  
 
 ---
