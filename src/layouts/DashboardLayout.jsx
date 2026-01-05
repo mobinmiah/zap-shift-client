@@ -30,7 +30,6 @@ const DashboardLayout = () => {
         <Link to="/" className="w-fit py-3 pl-3 bg-base-100 hidden md:block">
           <img src={navLogo} className="h-10" alt="" />
         </Link>
-
         {/* Navbar */}
         <nav className="navbar w-full bg-base-100 flex justify-between items-center">
           <label

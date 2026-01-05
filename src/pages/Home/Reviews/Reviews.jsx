@@ -18,7 +18,7 @@ const Reviews = () => {
   // const reviews = use(reviewsPromise);
   const axios = useAxios();
 
-  const { data: reviews = [], isLoading } = useQuery({
+  const { data: reviews = [] } = useQuery({
     queryKey: ["reviews"],
     queryFn: async () => {
       const res = await axios.get("/reviews", { timeout: 3000 });
@@ -26,9 +26,7 @@ const Reviews = () => {
     },
   });
 
-  if (isLoading) {
-    return <Loading></Loading>;
-  }
+ 
 
   console.log(reviews)
 

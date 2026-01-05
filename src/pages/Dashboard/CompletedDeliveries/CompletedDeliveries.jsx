@@ -16,7 +16,7 @@ const CompletedDeliveries = () => {
     queryKey: ["parcles", user?.email, "parcel_delivered"],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/parcels/riders?riderEmail=${user.email}&&deliveryStatus=parcel_delivered`
+        `/parcels/riders?riderEmail=${user?.email}&&deliveryStatus=parcel_delivered`
       );
       return res.data;
     },

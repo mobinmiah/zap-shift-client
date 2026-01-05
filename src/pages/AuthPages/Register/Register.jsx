@@ -64,9 +64,9 @@ const Register = () => {
       });
   };
 
-  if (loading) {
-    return <Loading></Loading>;
-  }
+if(loading){
+  return <Loading></Loading>
+}
 
   return (
     <div>

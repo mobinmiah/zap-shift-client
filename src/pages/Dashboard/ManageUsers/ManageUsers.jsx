@@ -64,7 +64,7 @@ const ManageUsers = () => {
           if (result.isConfirmed) {
             refetch();
             Swal.fire({
-              title: `${user.displayName} removed form admin`,
+              title: `${user.displayName} removed from admin`,
 
               icon: "success",
             });
