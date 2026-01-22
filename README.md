@@ -35,7 +35,7 @@ The admin dashboard provides a comprehensive overview of all deliveries with sta
 
 ### Rider Dashboard
 
-![Rider Dashboard](./ss/rider-dashboard.png)
+![Rider Dashboard](./ss/rider-dahsboard.png)
 
 The rider dashboard displays active deliveries assigned to the rider with options to update delivery status in real-time.
 
@@ -47,7 +47,7 @@ View of how riders can see and accept new delivery requests assigned to them.
 
 ### User Dashboard
 
-![User Dashboard](./ss/user-dashboard.png)
+![User Dashboard](./ss/user-dashbaord.png)
 
 The user dashboard shows personal parcel history, payment records, and spending summary with easy navigation to other features.
 
