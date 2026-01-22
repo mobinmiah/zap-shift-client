@@ -4,7 +4,7 @@ import useAuth from "./useAuth";
 import { useNavigate } from "react-router";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:3000",
 });
 
 const useAxiosSecure = () => {
@@ -24,14 +24,17 @@ const useAxiosSecure = () => {
     );
 
     const resInterceptor = axiosSecure.interceptors.response.use(
-      (respone) => {
-        return respone;
+      (response) => {
+        return response;
       },
       (error) => {
-        console.log(error);
+        console.log("Axios error:", error);
 
-        const statusCoce = error.status;
-        if (statusCoce === 401 || statusCoce === 403) {
+        const statusCode = error.response?.status || error.status;
+        console.log("Status code:", statusCode);
+
+        if (statusCode === 401 || statusCode === 403) {
+          console.log("Unauthorized/Forbidden - logging out");
           logOutUser().then(() => {
             navigate("/login");
           });

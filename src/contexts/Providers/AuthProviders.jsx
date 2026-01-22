@@ -12,6 +12,9 @@ import {
 import { auth } from "../../firebase/firebase.config";
 
 const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({
+  prompt: 'select_account'
+});
 
 const AuthProviders = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -62,7 +65,7 @@ const AuthProviders = ({ children }) => {
     googleSignIn,
   };
 
-  return <AuthContext value={authInfo}>{children}</AuthContext>;
+  return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProviders;

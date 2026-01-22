@@ -18,15 +18,20 @@ const Reviews = () => {
   // const reviews = use(reviewsPromise);
   const axios = useAxios();
 
-  const { data: reviews = [] } = useQuery({
+  const { data: reviews = [], isLoading } = useQuery({
     queryKey: ["reviews"],
     queryFn: async () => {
-      const res = await axios.get("/reviews", { timeout: 3000 });
-      return res.data;
+      const res = await fetch("/reviews.json");
+      if (!res.ok) {
+        throw new Error('Failed to fetch reviews');
+      }
+      return res.json();
     },
   });
 
- 
+  if (isLoading) {
+    return <Loading />;
+  }
 
   console.log(reviews)
 
@@ -69,7 +74,7 @@ const Reviews = () => {
         className="w-full max-w-7xl py-10"
       >
         {reviews.map((review) => (
-          <SwiperSlide key={review._id} className="flex justify-center">
+          <SwiperSlide key={review.id} className="flex justify-center">
             <ReviewCard review={review} />
           </SwiperSlide>
         ))}

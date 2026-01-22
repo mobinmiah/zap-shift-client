@@ -29,10 +29,16 @@ const Brands = () => {
           centeredSlides={true}
           spaceBetween={30}
           grabCursor={true}
-          loop={true}
+          loop={brandLogos.length > 4}
           autoplay={{
             delay: 2500,
             disableOnInteraction: false,
+          }}
+          breakpoints={{
+            320: { slidesPerView: 2, spaceBetween: 20 },
+            640: { slidesPerView: 3, spaceBetween: 25 },
+            768: { slidesPerView: 4, spaceBetween: 30 },
+            1024: { slidesPerView: 5, spaceBetween: 30 },
           }}
           modules={[Autoplay]}
           className="mySwiper border-b border-dashed border-secondary"

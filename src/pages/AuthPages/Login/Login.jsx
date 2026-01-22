@@ -16,8 +16,10 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
+  const [loginError, setLoginError] = useState("");
+
   const handleLogin = (data) => {
-    console.log(data);
+    setLoginError("");
     logInUser(data.email, data.password)
       .then((result) => {
         console.log(result);
@@ -25,6 +27,28 @@ const Login = () => {
       })
       .catch((error) => {
         console.log(error);
+        let errorMessage = "Login failed. Please check your credentials.";
+
+        // Handle specific Firebase auth errors
+        switch (error.code) {
+          case "auth/user-not-found":
+            errorMessage =
+              "No account found with this email. Please check your email or register first.";
+            break;
+          case "auth/wrong-password":
+            errorMessage = "Incorrect password. Please try again.";
+            break;
+          case "auth/invalid-email":
+            errorMessage = "Invalid email format. Please enter a valid email.";
+            break;
+          case "auth/user-disabled":
+            errorMessage = "This account has been disabled.";
+            break;
+          default:
+            errorMessage = error.message || "Login failed. Please try again.";
+        }
+
+        setLoginError(errorMessage);
       });
   };
   return (
@@ -65,6 +89,24 @@ const Login = () => {
 
             {errors.password?.type === "required" && (
               <p className="!text-error">Password is required</p>
+            )}
+            {loginError && (
+              <div className="alert alert-error mt-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="stroke-current shrink-0 h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span>{loginError}</span>
+              </div>
             )}
             <div>
               <a className="link link-hover">Forgot password?</a>
