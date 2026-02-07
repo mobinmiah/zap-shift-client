@@ -33,8 +33,6 @@ const Reviews = () => {
     return <Loading />;
   }
 
-  console.log(reviews)
-
   return (
     <div className="container mx-auto px-4 flex flex-col items-center gap-10 overflow-hidden">
       Top Icon

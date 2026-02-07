@@ -16,11 +16,6 @@ const UserDashboard = () => {
   const { user, loading: authLoading } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  // Debug logging
-  console.log("UserDashboard - user:", user);
-  console.log("UserDashboard - authLoading:", authLoading);
-
-  // Fetch user's parcels
   const {
     data: parcels = [],
     isLoading,
@@ -29,10 +24,8 @@ const UserDashboard = () => {
   } = useQuery({
     queryKey: ["user-parcels", user?.email],
     queryFn: async () => {
-      console.log("Fetching parcels for:", user?.email);
       if (!user?.email) return [];
       const res = await axiosSecure.get(`/parcels?email=${user.email}`);
-      console.log("Parcels fetched:", res.data);
       return res.data;
     },
     retry: 2,
@@ -40,26 +33,17 @@ const UserDashboard = () => {
     enabled: !!user?.email && !authLoading,
   });
 
-  console.log("UserDashboard - parcels loading:", isLoading);
-  console.log("UserDashboard - parcels error:", isError, error);
-
-  // Fetch user's payments
   const { data: payments = [], isLoading: paymentsLoading } = useQuery({
     queryKey: ["user-payments", user?.email],
     queryFn: async () => {
-      console.log("Fetching payments for:", user?.email);
       if (!user?.email) return [];
       const res = await axiosSecure.get(`/payments?email=${user.email}`);
-      console.log("Payments fetched:", res.data);
       return res.data;
     },
     retry: 1,
     enabled: !!user?.email && !authLoading,
   });
 
-  console.log("UserDashboard - payments loading:", paymentsLoading);
-
-  // Calculate stats
   const pendingParcels = parcels.filter(
     (p) =>
       p.deliveryStatus === "pending_pickup" || p.deliveryStatus === "processing"
@@ -74,13 +58,10 @@ const UserDashboard = () => {
   ).length;
   const totalSpent = payments.reduce((sum, payment) => sum + payment.amount, 0);
 
-  // Loading state
   if (authLoading || isLoading || paymentsLoading) {
-    console.log("Showing loading spinner");
     return <Loading />;
   }
 
-  // Error state
   if (isError) {
     return (
       <div className="m-2 p-3 bg-base-100 rounded-lg">

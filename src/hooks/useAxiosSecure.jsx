@@ -3,8 +3,25 @@ import React, { useEffect } from "react";
 import useAuth from "./useAuth";
 import { useNavigate } from "react-router";
 
+const getBaseURL = () => {
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL;
+  }
+
+  if (typeof window !== "undefined") {
+    const hostname = window.location.hostname;
+    if (hostname === "localhost" || hostname === "127.0.0.1") {
+      return "http://localhost:3000";
+    } else {
+      return "https://zap-shift-server-hazel-beta.vercel.app";
+    }
+  }
+
+  return "http://localhost:3000";
+};
+
 const axiosSecure = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:3000",
+  baseURL: getBaseURL(),
 });
 
 const useAxiosSecure = () => {
@@ -14,8 +31,6 @@ const useAxiosSecure = () => {
     const reqInterceptor = axiosSecure.interceptors.request.use(
       async (config) => {
         if (user) {
-          // const tokenByMe =
-          //   user.accessToken || user.stsTokenManager.accessToken;
           const tokenByGPT = await user.getIdToken(true);
           config.headers.Authorization = `Bearer ${tokenByGPT}`;
         }
@@ -28,13 +43,9 @@ const useAxiosSecure = () => {
         return response;
       },
       (error) => {
-        console.log("Axios error:", error);
-
         const statusCode = error.response?.status || error.status;
-        console.log("Status code:", statusCode);
 
         if (statusCode === 401 || statusCode === 403) {
-          console.log("Unauthorized/Forbidden - logging out");
           logOutUser().then(() => {
             navigate("/login");
           });

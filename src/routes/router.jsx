@@ -48,7 +48,6 @@ export const router = createBrowserRouter([
         path: "coverage",
         Component: Coverage,
         loader: () => fetch("/serviceBranches.json").then((res) => res.json()),
-        // hydrateFallbackElement: <Loading></Loading>,
       },
       {
         path: "about",
@@ -62,7 +61,6 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: () => fetch("/serviceBranches.json").then((res) => res.json()),
-        // hydrateFallbackElement: <Loading></Loading>,
       },
       {
         path: "rider",
@@ -72,12 +70,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: () => fetch("/serviceBranches.json").then((res) => res.json()),
-        // hydrateFallbackElement: <Loading></Loading>,
       },
-      // {
-      //   path: "addParsel",
-      //   element: <></>,
-      // },
       {
         path:'track-parcel/:trackingId',
         Component: TrackParcel
@@ -106,7 +99,6 @@ export const router = createBrowserRouter([
         <DashboardLayout></DashboardLayout>
       </PrivateRoute>
     ),
-    // errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         index:true,
@@ -183,5 +175,3 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
-
-// export default router;

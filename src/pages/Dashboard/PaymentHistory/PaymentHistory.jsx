@@ -11,7 +11,6 @@ const PaymentHistory = () => {
     queryKey: ["payments", user.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/payments?email=${user.email}`);
-      console.log(res.data);
       return res.data;
     },
   });
@@ -19,7 +18,7 @@ const PaymentHistory = () => {
   if (loading || !user || !payments) {
     return <Loading></Loading>;
   }
-  console.log(payments);
+
   return (
     <div className="m-2 p-3 bg-base-100 rounded-lg ">
       <h2>Payment History ({payments.length})</h2>
@@ -32,7 +31,6 @@ const PaymentHistory = () => {
             <tr>
               <th>No.</th>
               <th>Parcel Info</th>
-              {/* <th>Recipient Info</th> */}
               <th>Paid Time</th>
               <th>Payment Info</th>
               <th>Tracking ID</th>

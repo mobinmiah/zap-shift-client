@@ -22,11 +22,9 @@ const Login = () => {
     setLoginError("");
     logInUser(data.email, data.password)
       .then((result) => {
-        console.log(result);
         navigate(location?.state || "/");
       })
       .catch((error) => {
-        console.log(error);
         let errorMessage = "Login failed. Please check your credentials.";
 
         // Handle specific Firebase auth errors

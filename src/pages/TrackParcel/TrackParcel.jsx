@@ -22,11 +22,9 @@ const {data: parcels=[]}=useQuery({
     return res.data
   }
 })
-console.log(parcels)
   if (isLoading) {
     return <Loading></Loading>;
   }
-  console.log(trackings);
 
   return (
     <div className="my-20 p-3 bg-base-100 rounded-lg">

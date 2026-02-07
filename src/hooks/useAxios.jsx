@@ -1,12 +1,27 @@
-  import axios from 'axios';
-  import React from 'react';
+import axios from 'axios';
+import React from 'react';
 
-  const axiosInstance = axios.create({
-    baseURL: "http://localhost:3000",
-  });
+const getBaseURL = () => {
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL;
+  }
 
-  const useAxios = () => {
-      return (axiosInstance);
-  };
+  if (typeof window !== "undefined") {
+    const hostname = window.location.hostname;
+    if (hostname === "localhost" || hostname === "127.0.0.1") {
+      return "http://localhost:3000";
+    }
+  }
 
-  export default useAxios;
+  return "https://zap-shift-server-hazel-beta.vercel.app";
+};
+
+const axiosInstance = axios.create({
+  baseURL: getBaseURL(),
+});
+
+const useAxios = () => {
+  return axiosInstance;
+};
+
+export default useAxios;

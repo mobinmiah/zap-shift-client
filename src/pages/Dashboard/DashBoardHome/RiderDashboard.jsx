@@ -74,7 +74,6 @@ const RiderDashboard = () => {
       });
       refetch();
     } catch (err) {
-      console.error("Error updating delivery status:", err);
     }
   };
 

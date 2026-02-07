@@ -42,8 +42,6 @@ const Register = () => {
 
           axiosSecure.post("/users", userInfo).then((res) => {
             if (res.data.insertedId) {
-              console.log("user created in the databse");
-              // update user profile
               const updateProfile = {
                 displayName: data.name,
                 photoURL: photoURL,
@@ -51,16 +49,15 @@ const Register = () => {
     
               updateUsersProfile(updateProfile)
                 .then()
-                .catch((error) => console.log(error));
+                .catch((error) => {});
               navigate(location?.state || "/");
             }
           })
-          .catch(error=>console.log(error))
+          .catch(error=>{})
 
         });
       })
       .catch((error) => {
-        console.log(error);
       });
   };
 

@@ -11,9 +11,7 @@ const SocialButton = () => {
   const hanldeGoogleSignIn = () => {
     googleSignIn()
       .then((result) => {
-        console.log(result.user);
 
-        // create user in the db
         const userInfo = {
           email: result.user.email,
           displayName: result.user.displayName,
@@ -25,20 +23,13 @@ const SocialButton = () => {
             navigate(location?.state || "/");
           })
           .catch((error) => {
-            console.error("Error saving user to database:", error);
-            // Still navigate even if DB save fails
             navigate(location?.state || "/");
           });
       })
       .catch((error) => {
-        console.error("Google sign-in error:", error);
-        // Handle specific Firebase auth errors
         if (error.code === 'auth/popup-closed-by-user') {
-          console.log("Sign-in popup was closed by user");
         } else if (error.code === 'auth/popup-blocked') {
-          console.log("Sign-in popup was blocked by browser");
         } else {
-          console.log("Sign-in failed:", error.message);
         }
       });
   };

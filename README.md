@@ -39,12 +39,6 @@ The admin dashboard provides a comprehensive overview of all deliveries with sta
 
 The rider dashboard displays active deliveries assigned to the rider with options to update delivery status in real-time.
 
-### Rider Request View
-
-![Rider Request](./ss/rider-request.png)
-
-View of how riders can see and accept new delivery requests assigned to them.
-
 ### User Dashboard
 
 ![User Dashboard](./ss/user-dashbaord.png)
