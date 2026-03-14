@@ -11,12 +11,12 @@ import "swiper/css/pagination";
 // Modules
 import { Autoplay, EffectCoverflow, Pagination } from "swiper/modules";
 import { useQuery } from "@tanstack/react-query";
-import useAxios from "../../../hooks/useAxios";
+// import useAxios from "../../../hooks/useAxios";
 import Loading from "../../../components/Loading/Loading";
 
 const Reviews = () => {
   // const reviews = use(reviewsPromise);
-  const axios = useAxios();
+  // const axios = useAxios();
 
   const { data: reviews = [], isLoading } = useQuery({
     queryKey: ["reviews"],

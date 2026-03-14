@@ -3,25 +3,8 @@ import React, { useEffect } from "react";
 import useAuth from "./useAuth";
 import { useNavigate } from "react-router";
 
-const getBaseURL = () => {
-  if (import.meta.env.VITE_API_BASE_URL) {
-    return import.meta.env.VITE_API_BASE_URL;
-  }
-
-  if (typeof window !== "undefined") {
-    const hostname = window.location.hostname;
-    if (hostname === "localhost" || hostname === "127.0.0.1") {
-      return "http://localhost:3000";
-    } else {
-      return "https://zap-shift-server-hazel-beta.vercel.app";
-    }
-  }
-
-  return "http://localhost:3000";
-};
-
 const axiosSecure = axios.create({
-  baseURL: getBaseURL(),
+  baseURL: "https://zap-shift-server-hazel-beta.vercel.app",
 });
 
 const useAxiosSecure = () => {
@@ -35,7 +18,7 @@ const useAxiosSecure = () => {
           config.headers.Authorization = `Bearer ${tokenByGPT}`;
         }
         return config;
-      }
+      },
     );
 
     const resInterceptor = axiosSecure.interceptors.response.use(
@@ -52,7 +35,7 @@ const useAxiosSecure = () => {
         }
 
         return Promise.reject(error);
-      }
+      },
     );
 
     return () => {

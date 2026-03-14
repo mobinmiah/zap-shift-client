@@ -76,7 +76,7 @@ const SendParcel = () => {
       confirmButtonText: "Confirm & Send",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.post("/parcels", data).then((res) => {
+        axiosSecure.post("/parcels", data).then(() => {
         });
         navigate("/dashboard/my-parcels");
         Swal.fire({
