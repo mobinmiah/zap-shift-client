@@ -4,7 +4,7 @@ Zap Shift Client is the frontend application for the parcel delivery management 
 
 ## 🌐 Live Demo
 
-🔗 [https://zap-shift-by-mobin.netlify.app](https://zap-shift-by-mobin.netlify.app)
+🔗 [https://zap-shift-9fw.pages.dev](https://zap-shift-9fw.pages.dev/)
 
 ## Features
 
